@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5753068333886237107}
   - component: {fileID: 6995495317500412814}
+  - component: {fileID: 5799552140634073626}
   m_Layer: 0
   m_Name: GE1
   m_TagString: Untagged
@@ -84,3 +85,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5799552140634073626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7139722735278399968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c45bbd04065049afe44ca31746737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  itemName: "\uC6FB \uBE0C\uB7EC\uC26C"
+  itemInfo: "\uC6FB \uBE0C\uB7EC\uC26C\uB294 \uACE0\uBB34, \uB098\uBB34, \uD50C\uB77C\uC2A4\uD2F1
+    \uB4F1\uC774 \uC11E\uC778 \uBCF5\uD569 \uC7AC\uC9C8\uC774\uAE30 \uB54C\uBB38\uC5D0
+    \uC7AC\uD65C\uC6A9\uC774 \uC5B4\uB835\uC2B5\uB2C8\uB2E4."
+  type: 1
+  pair_first: {fileID: 0}
+  pair_second: {fileID: 0}

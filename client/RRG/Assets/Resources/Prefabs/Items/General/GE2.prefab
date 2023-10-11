@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3828983956663585697}
   - component: {fileID: 2938333674960122691}
+  - component: {fileID: -156498220560694402}
   m_Layer: 0
   m_Name: GE2
   m_TagString: Untagged
@@ -84,3 +85,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-156498220560694402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785726879362154603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c45bbd04065049afe44ca31746737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  itemName: "\uC0E4\uC6CC\uBCFC"
+  itemInfo: "\uC0E4\uC6CC\uBCFC\uC740 \uD2B9\uC218\uC7AC\uC9C8\uC774\uB77C \uC7AC\uD65C\uC6A9\uC774
+    \uC5B4\uB835\uC2B5\uB2C8\uB2E4."
+  type: 1
+  pair_first: {fileID: 0}
+  pair_second: {fileID: 0}
