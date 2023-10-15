@@ -6,9 +6,6 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField]
-    Sprite sprite;
-
-    [SerializeField]
     string itemName;
 
     [SerializeField]
@@ -22,5 +19,4 @@ public class Item : MonoBehaviour
     Item pair_first = null;
     [SerializeField]
     Item pair_second = null;
-
 }
