@@ -98,8 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 3a47930cf85d6d843858a383e86d4ab4, type: 3}
-  itemName: 
-  itemInfo: 
+  itemName: "\uC885\uC774\uBD09\uD22C"
+  itemInfo: "\uBB3C\uC774\uB098 \uC774\uBB3C\uC9C8\uC774 \uBB3B\uC9C0 \uC54A\uAC8C
+    \uD558\uACE0 \uC885\uC774\uB85C \uBD84\uB9AC\uBC30\uCD9C\uD569\uB2C8\uB2E4."
   type: 3
   pair_first: {fileID: 0}
   pair_second: {fileID: 0}

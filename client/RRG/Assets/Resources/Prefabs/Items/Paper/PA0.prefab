@@ -98,9 +98,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: e419e700a3285d142ad0ea4bca4515d4, type: 3}
+<<<<<<< HEAD
   itemName: "\uC885\uC774 \uCEF5\uD640\uB354"
   itemInfo: "\uCF54\uD305\uB418\uC9C0 \uC54A\uC740 \uC885\uC774 \uCEF5\uD640\uB354\uB294
     \uC885\uC774\uB958\uC5D0 \uBC30\uCD9C\uD569\uB2C8\uB2E4."
+=======
+  itemName: "\uCEF5 \uD640\uB354"
+  itemInfo: "\uC885\uC774 \uD639\uC740 \uBC15\uC2A4 \uC7AC\uC9C8\uB85C \uBD84\uB9AC\uC218\uAC70\uAC00
+    \uAC00\uB2A5\uD569\uB2C8\uB2E4."
+>>>>>>> 439d153 (SCRUM-23 paper 프리팹 설명 추가)
   type: 3
   pair_first: {fileID: 0}
   pair_second: {fileID: 0}
