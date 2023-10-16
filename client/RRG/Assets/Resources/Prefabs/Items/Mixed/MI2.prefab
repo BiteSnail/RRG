@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6636340807584292159}
   - component: {fileID: 3492766017075904219}
+  - component: {fileID: 2609247015051985116}
   m_Layer: 0
   m_Name: MI2
   m_TagString: Untagged
@@ -84,3 +85,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2609247015051985116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653752696674683577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c45bbd04065049afe44ca31746737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  itemName: "\uC0DD\uC218 \uD398\uD2B8\uBCD1"
+  itemInfo: "\uC0DD\uC218 \uD398\uD2B8\uBCD1\uC740 \uB0B4\uC6A9\uC744 \uBE44\uC6B0\uACE0
+    \uD398\uD2B8\uBCD1 \uAC89\uBA74\uC5D0 \uBD99\uC5B4\uC788\uB294 \uC0C1\uD45C \uB4F1\uC758
+    \uBE44\uB2D0 \uB77C\uBCA8\uC744 \uAE68\uB057\uC774 \uB5BC\uC5B4\uB0B4 \uD50C\uB77C\uC2A4\uD2F1
+    \uD398\uD2B8\uBCD1\uACFC \uBE44\uB2D0\uB77C\uBCA8\uB85C \uBD84\uB9AC\uD569\uB2C8\uB2E4."
+  type: 1
+  pair_first: {fileID: -1152920795641580212, guid: 7782e279cda966544a12f661ff8e3035, type: 3}
+  pair_second: {fileID: -7000543279889453214, guid: d43932a022d11ad48baa1bd3af7f76eb, type: 3}

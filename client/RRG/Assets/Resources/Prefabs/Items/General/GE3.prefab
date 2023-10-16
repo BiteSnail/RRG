@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 949418728715456819}
   - component: {fileID: 6829558776862066477}
+  - component: {fileID: -5947596435907520220}
   m_Layer: 0
   m_Name: GE3
   m_TagString: Untagged
@@ -84,3 +85,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-5947596435907520220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8264956189434757794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33c45bbd04065049afe44ca31746737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  itemName: "\uBE68\uB300"
+  itemInfo: "\uBE68\uB300\uB294 \uC587\uACE0 \uAC00\uBCBC\uC6CC \uC7AC\uD65C\uC6A9
+    \uC120\uBCC4\uC774 \uC798 \uC548\uB418\uBBC0\uB85C \uC77C\uBC18\uC4F0\uB808\uAE30\uC5D0
+    \uBC30\uCD9C\uD569\uB2C8\uB2E4."
+  type: 1
+  pair_first: {fileID: 0}
+  pair_second: {fileID: 0}
