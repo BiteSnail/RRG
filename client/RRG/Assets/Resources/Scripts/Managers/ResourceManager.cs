@@ -42,6 +42,22 @@ public class ResourceManager
         }   
     }
 
+    public Item GetRandomItem()
+    {
+        string[] itemTypes = { "CA", "PA", "PL", "VI", "GL", "PE", "GE", "MI" };
+        int randType = Random.Range(0, itemTypes.Length);
+        int randNum;
+        Item ret = null;
+        randNum = Random.Range(0, 20);
+
+        while (!items.TryGetValue(itemTypes[randType] + randNum.ToString(), out ret))
+        {
+            randNum = Random.Range(0, 20);
+        }
+
+        return ret;
+    }
+
     public AudioClip GetAudio(string name)
     {
         if (audios.ContainsKey(name))
