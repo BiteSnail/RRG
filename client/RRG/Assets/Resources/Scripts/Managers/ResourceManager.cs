@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ResourceManager
 {
-    private Dictionary<string /*id*/, GameObject /*item*/> items = new Dictionary<string, GameObject>();
+    private Dictionary<string /*id*/, Item /*item*/> items = new Dictionary<string, Item>();
     private Dictionary<string /*name*/, AudioClip /*Audio*/> audios = new Dictionary<string , AudioClip >();
    
     public void Start()
@@ -16,8 +16,12 @@ public class ResourceManager
      
     private void LoadItems()
     {
-        //TODO 
-        //쓰레기 아이템 프리팹 생성하고 로드&인스턴스화하기
+        Object[] objects = Resources.LoadAll("Prefabs/Items");
+        foreach (Object obj in objects)
+        {
+            Item item = (Item)GameObject.Instantiate(obj);
+            items.Add(item.name, item);
+        }
     }
 
     private void LoadAudioClips()
@@ -26,7 +30,7 @@ public class ResourceManager
         //오디오 클립 넣고 로드하기
     }
 
-    public GameObject GetItem(string name)
+    public Item GetItem(string name)
     {
         if (items.ContainsKey(name))
         {
