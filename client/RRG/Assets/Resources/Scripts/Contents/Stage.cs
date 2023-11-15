@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoteManager : MonoBehaviour
+public class Stage : MonoBehaviour
 {
     public int bpm = 60; //설정 필요
     double currentTime = 0;
@@ -11,6 +11,8 @@ public class NoteManager : MonoBehaviour
     public int[] hitBeatNums; //스테이지별로 작성 필요
     public bool[] isHitBeat = new bool[200];
     public int nowBeatIndex = 0;
+
+    Item item = null;
 
 
     void Start()
@@ -36,17 +38,19 @@ public class NoteManager : MonoBehaviour
             }
         }
 
-
         if (currentTime >= 60d / bpm) //매 박자마다
         {
             if (isHitBeat[nowBeatIndex] == true)
             {
-                //랜덤 쓰레기 이미지 생성
+                item = Managers.Resource.GetRandomItem();
+                Item itemInstance =GameObject.Instantiate(item);
             }
         }
-        else if (nowBeatIndex > 0 && isHitBeat[nowBeatIndex - 1] == true) //이미지 뜬 다음 박자에서
+        else if (nowBeatIndex > 0 && isHitBeat[nowBeatIndex - 1] == true && item) //이미지 뜬 다음 박자에서
         {
-            //이미지 제거(투명화)
+            Color color = item.GetComponent<SpriteRenderer>().color;
+            color.a = 0;
+            item.GetComponent<SpriteRenderer>().color = color;
         }
         nowBeatIndex++;
     }
