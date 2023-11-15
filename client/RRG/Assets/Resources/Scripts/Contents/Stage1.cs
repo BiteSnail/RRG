@@ -14,6 +14,8 @@ public class Stage1 : StageBase
             if (IsCorrectHit() && item.type == ItemType.General)
             {
                 //맞음 
+                //효과음 재생
+                //
             }
             else
             {
@@ -70,7 +72,6 @@ public class Stage1 : StageBase
             if (isHitBeat[nowBeatIndex] == true)
             {
                 item = Managers.Resource.GetRandomItem();
-                Item itemInstance = GameObject.Instantiate(item);
             }
         }
         else if (nowBeatIndex > 0 && isHitBeat[nowBeatIndex - 1] == true && item) //이미지 뜬 다음 박자에서
