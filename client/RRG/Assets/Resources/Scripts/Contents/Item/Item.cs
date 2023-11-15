@@ -6,17 +6,17 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField]
-    string itemName;
+    public string itemName;
 
     [SerializeField]
-    string itemInfo;
+    public string itemInfo;
 
     [SerializeField]
-    ItemType type = ItemType.General;
+    public ItemType type = ItemType.General;
 
     // Mixed老 版快 备己窍绰 Item
     [SerializeField]
-    Item pair_first = null;
+    public Item pair_first = null;
     [SerializeField]
-    Item pair_second = null;
+    public Item pair_second = null;
 }

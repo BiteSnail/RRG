@@ -9,9 +9,9 @@ public class Stage1 : StageBase
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) //버튼이 눌렸을 때-> 4개의 키로 확장해야 함
+        if (Input.GetKeyDown(KeyCode.Space)) //특수키
         {
-            if (Mathf.Abs((float)currentTime - 60 / bpm) < exceedRange && isHitBeat[nowBeatIndex - 1] == true)
+            if (IsCorrectHit() && item.type == ItemType.General)
             {
                 //맞음 
             }
@@ -20,7 +20,50 @@ public class Stage1 : StageBase
                 //틀림
             }
         }
-
+        else if (Input.GetKeyDown(KeyCode.Q) && item.type == ItemType.Plastic) //플라스틱
+        {
+            if (IsCorrectHit())
+            {
+                //맞음 
+            }
+            else
+            {
+                //틀림
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.W) && item.type == ItemType.Can) //캔
+        {
+            if (IsCorrectHit())
+            {
+                //맞음 
+            }
+            else
+            {
+                //틀림
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && item.type == ItemType.Paper) //종이
+        {
+            if (IsCorrectHit())
+            {
+                //맞음 
+            }
+            else
+            {
+                //틀림
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.R) && item.type == ItemType.Glass) //유리
+        {
+            if (IsCorrectHit())
+            {
+                //맞음 
+            }
+            else
+            {
+                //틀림
+            }
+        }
 
         if (currentTime >= 60d / bpm) //매 박자마다
         {

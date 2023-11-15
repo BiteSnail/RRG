@@ -31,4 +31,9 @@ public class StageBase : MonoBehaviour
     {
         nowBeatIndex++;
     }
+
+    protected bool IsCorrectHit()
+    {
+        return Mathf.Abs((float)currentTime - 60 / bpm) < exceedRange && isHitBeat[nowBeatIndex - 1];
+    }
 }
