@@ -20,9 +20,9 @@ public class Stage1 : StageBase
                 //틀림
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Q) && item.type == ItemType.Plastic) //플라스틱
+        else if (Input.GetKeyDown(KeyCode.Q)) //플라스틱
         {
-            if (IsCorrectHit())
+            if (IsCorrectHit() && item.type == ItemType.Plastic)
             {
                 //맞음 
             }
@@ -31,9 +31,9 @@ public class Stage1 : StageBase
                 //틀림
             }
         }
-        else if (Input.GetKeyDown(KeyCode.W) && item.type == ItemType.Can) //캔
+        else if (Input.GetKeyDown(KeyCode.W)) //캔
         {
-            if (IsCorrectHit())
+            if (IsCorrectHit() && item.type == ItemType.Can)
             {
                 //맞음 
             }
@@ -42,9 +42,9 @@ public class Stage1 : StageBase
                 //틀림
             }
         }
-        else if (Input.GetKeyDown(KeyCode.E) && item.type == ItemType.Paper) //종이
+        else if (Input.GetKeyDown(KeyCode.E)) //종이
         {
-            if (IsCorrectHit())
+            if (IsCorrectHit() && item.type == ItemType.Paper)
             {
                 //맞음 
             }
@@ -53,9 +53,9 @@ public class Stage1 : StageBase
                 //틀림
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R) && item.type == ItemType.Glass) //유리
+        else if (Input.GetKeyDown(KeyCode.R) ) //유리
         {
-            if (IsCorrectHit())
+            if (IsCorrectHit() && item.type == ItemType.Glass)
             {
                 //맞음 
             }
