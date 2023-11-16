@@ -9,6 +9,8 @@ public class Stage1 : StageBase
 
     private void Update()
     {
+        currentTime += Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.Space)) //특수키
         {
             if (IsCorrectHit() && item.type == ItemType.General)
@@ -75,16 +77,19 @@ public class Stage1 : StageBase
 
         if (currentTime >= 60d / bpm) //매 박자마다
         {
+            nowBeatIndex++;
+            currentTime -= 60d / bpm;
             if (isHitBeat[nowBeatIndex] == true)
             {
                 item = Managers.Resource.GetRandomItem();
-                item.transform.parent = itemPos.transform;
+                Item itemIns = GameObject.Instantiate(item);
+                itemIns.transform.parent = itemPos.transform;
+                itemIns.transform.localPosition = new Vector2(0, 0);
             }
 
-            currentTime -= 60d / bpm;
         }
         //다음 박자에 못눌렀으면
-        if(currentTime > exceedRange && isHitBeat[nowBeatIndex - 1] && item)
+        if(currentTime > exceedRange && item && isHitBeat[nowBeatIndex - 1])
         {
             //틀림(놓침)
 
