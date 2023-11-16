@@ -25,16 +25,6 @@ public class StageBase : MonoBehaviour
             isHitBeat[num] = true;
     }
 
-    void Update()
-    {
-        currentTime += Time.deltaTime;
-
-    }
-
-    private void LateUpdate()
-    {
-        nowBeatIndex++;
-    }
 
     protected bool IsCorrectHit()
     {
@@ -45,7 +35,7 @@ public class StageBase : MonoBehaviour
     {
         if (item != null)
         {
-            Destroy(item);
+            Destroy(item.gameObject);
             item = null;
         }
     }

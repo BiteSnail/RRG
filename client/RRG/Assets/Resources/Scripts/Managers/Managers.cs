@@ -23,7 +23,6 @@ public class Managers : MonoBehaviour
     private void Start()
     {
         Init();
-        Game.Start();
         Resource.Start();
         sound.Start();
     }

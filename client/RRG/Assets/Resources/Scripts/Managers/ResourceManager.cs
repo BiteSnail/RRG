@@ -16,12 +16,12 @@ public class ResourceManager
      
     private void LoadItems()
     {
-        Object[] objects = Resources.LoadAll("Prefabs/Items");
-        foreach (Object obj in objects)
+        Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/");
+        foreach (Item obj in objects)
         {
-            Item item = (Item)GameObject.Instantiate(obj);
-            items.Add(item.name, item);
+            items.Add(obj.name, obj);
         }
+
     }
 
     private void LoadAudioClips()
