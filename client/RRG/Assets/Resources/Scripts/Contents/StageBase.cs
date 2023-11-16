@@ -32,7 +32,7 @@ public class StageBase : MonoBehaviour
     {
         if (item != null)
         {
-            Destroy(item);
+            Destroy(item.gameObject);
             item = null;
         }
     }

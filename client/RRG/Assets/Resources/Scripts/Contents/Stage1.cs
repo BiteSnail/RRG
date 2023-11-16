@@ -81,15 +81,15 @@ public class Stage1 : StageBase
             currentTime -= 60d / bpm;
             if (isHitBeat[nowBeatIndex] == true)
             {
-                item = Managers.Resource.GetRandomItem();
-                Item itemIns = GameObject.Instantiate(item);
-                itemIns.transform.parent = itemPos.transform;
-                itemIns.transform.localPosition = new Vector2(0, 0);
+                Item randomItem = Managers.Resource.GetRandomItem();
+                item = GameObject.Instantiate(randomItem);
+                item.transform.parent = itemPos.transform;
+                item.transform.localPosition = new Vector2(0, 0);
             }
 
         }
         //다음 박자에 못눌렀으면
-        if(currentTime > exceedRange && item && isHitBeat[nowBeatIndex - 1])
+        if(currentTime > exceedRange && item && isHitBeat[nowBeatIndex-1] == true)
         {
             //틀림(놓침)
 
