@@ -73,13 +73,12 @@ public class Stage1 : StageBase
             {
                 item = Managers.Resource.GetRandomItem();
             }
-        }
-        else if (nowBeatIndex > 0 && isHitBeat[nowBeatIndex - 1] == true && item) //이미지 뜬 다음 박자에서
-        {
-            Destroy(item);
-            item = null;
+            else if (nowBeatIndex > 0 && isHitBeat[nowBeatIndex - 1] == true && item) //이미지 뜬 다음 박자에서
+            {
+                Destroy(item);
+                item = null;
+            }
+            currentTime -= 60d / bpm;
         }
     }
-
-
 }
