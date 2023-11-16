@@ -78,6 +78,7 @@ public class Stage1 : StageBase
             if (isHitBeat[nowBeatIndex] == true)
             {
                 item = Managers.Resource.GetRandomItem();
+                item.transform.parent = itemPos.transform;
             }
 
             currentTime -= 60d / bpm;

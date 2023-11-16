@@ -13,6 +13,7 @@ public class StageBase : MonoBehaviour
     protected int nowBeatIndex = 0;
 
     protected Item item = null;
+    public GameObject itemPos;
 
 
     void Start()
