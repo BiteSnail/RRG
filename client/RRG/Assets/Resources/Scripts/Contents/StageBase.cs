@@ -36,4 +36,13 @@ public class StageBase : MonoBehaviour
     {
         return Mathf.Abs((float)currentTime - 60 / bpm) < exceedRange && isHitBeat[nowBeatIndex - 1];
     }
+
+    protected void DestroyItem()
+    {
+        if (item != null)
+        {
+            Destroy(item);
+            item = null;
+        }
+    }
 }

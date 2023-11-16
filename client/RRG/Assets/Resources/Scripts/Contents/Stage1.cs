@@ -20,7 +20,9 @@ public class Stage1 : StageBase
             else
             {
                 //틀림
+
             }
+            DestroyItem();
         }
         else if (Input.GetKeyDown(KeyCode.Q)) //플라스틱
         {
@@ -32,6 +34,7 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            DestroyItem();
         }
         else if (Input.GetKeyDown(KeyCode.W)) //캔
         {
@@ -43,6 +46,7 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            DestroyItem();
         }
         else if (Input.GetKeyDown(KeyCode.E)) //종이
         {
@@ -54,6 +58,7 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            DestroyItem();
         }
         else if (Input.GetKeyDown(KeyCode.R) ) //유리
         {
@@ -65,6 +70,7 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            DestroyItem();
         }
 
         if (currentTime >= 60d / bpm) //매 박자마다
@@ -73,12 +79,15 @@ public class Stage1 : StageBase
             {
                 item = Managers.Resource.GetRandomItem();
             }
-            else if (nowBeatIndex > 0 && isHitBeat[nowBeatIndex - 1] == true && item) //이미지 뜬 다음 박자에서
-            {
-                Destroy(item);
-                item = null;
-            }
+
             currentTime -= 60d / bpm;
+        }
+        //다음 박자에 못눌렀으면
+        if(currentTime > exceedRange && isHitBeat[nowBeatIndex - 1] && item)
+        {
+            //틀림(놓침)
+
+            DestroyItem();
         }
     }
 }
