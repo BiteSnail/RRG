@@ -6,7 +6,7 @@ public class StageBase : MonoBehaviour
 {
     public int bpm = 60; //설정 필요
     protected double currentTime = 0;
-    public double exceedRange = 0.3f;
+    public double exceedRange = 0.5f;
 
     public int[] hitBeatNums; //스테이지별로 작성 필요
     protected bool[] isHitBeat = new bool[200];
@@ -18,6 +18,16 @@ public class StageBase : MonoBehaviour
     public Sprite gameBackground;
     public Sprite openingBackground;
 
+    public float itemMoveSpeed = 3f;
+    public GameObject itemSpawnPos;
+    public GameObject canPos;
+    public GameObject plasticPos;
+    public GameObject paperPos;
+    public GameObject glassPos;
+    public GameObject generalPos;
+
+    protected bool gameStarted = false;
+
     void Start()
     {
         StartCoroutine(Opening());
@@ -28,7 +38,8 @@ public class StageBase : MonoBehaviour
 
     protected bool IsCorrectHit()
     {
-        return Mathf.Abs((float)currentTime - 60 / bpm) < exceedRange && isHitBeat[nowBeatIndex - 1];
+        return (currentTime < exceedRange && isHitBeat[nowBeatIndex - 1]) 
+            || (60d/bpm - currentTime < exceedRange && isHitBeat[nowBeatIndex]);
     }
 
     protected void DestroyItem()
@@ -52,5 +63,7 @@ public class StageBase : MonoBehaviour
             .Find("Background")
             .GetComponent<SpriteRenderer>()
             .sprite = gameBackground;
+
+        gameStarted = true;
     }
 }

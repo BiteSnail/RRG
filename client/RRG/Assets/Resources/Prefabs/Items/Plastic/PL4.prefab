@@ -97,10 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33c45bbd04065049afe44ca31746737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
   itemName: "\uC0DD\uC218 \uD398\uD2B8\uBCD1"
   itemInfo: "\uAE68\uB057\uD55C \uD398\uD2B8\uBCD1\uC740 \uC555\uCC29\uD558\uB294
     \uACFC\uC815\uC774 \uD544\uC694\uD569\uB2C8\uB2E4."
-  type: 1
+  type: 4
   pair_first: {fileID: -6074929133488350230, guid: 3805561a1fad64d44ab781f44fe9e005, type: 3}
   pair_second: {fileID: 0}

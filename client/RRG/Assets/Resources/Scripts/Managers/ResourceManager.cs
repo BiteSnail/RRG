@@ -16,11 +16,33 @@ public class ResourceManager
      
     private void LoadItems()
     {
-        Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/");
-        foreach (Item obj in objects)
         {
-            items.Add(obj.name, obj);
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Plastic");
+            foreach (Item obj in objects)
+                items.Add(obj.name, obj);
         }
+        {
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Can");
+            foreach (Item obj in objects)
+                items.Add(obj.name, obj);
+
+        }
+        {
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Paper");
+            foreach (Item obj in objects)
+                items.Add(obj.name, obj);
+        }
+        {
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Glass");
+            foreach (Item obj in objects)
+                items.Add(obj.name, obj);
+        }
+        {
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/General");
+            foreach (Item obj in objects)
+                items.Add(obj.name, obj);
+        }
+
 
     }
 
