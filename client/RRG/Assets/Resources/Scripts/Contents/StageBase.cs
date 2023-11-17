@@ -15,9 +15,12 @@ public class StageBase : MonoBehaviour
     protected Item item = null;
     public GameObject itemPos;
 
+    public Sprite gameBackground;
+    public Sprite openingBackground;
 
     void Start()
     {
+        StartCoroutine(Opening());
         foreach (int num in hitBeatNums)
             isHitBeat[num] = true;
     }
@@ -35,5 +38,19 @@ public class StageBase : MonoBehaviour
             Destroy(item.gameObject);
             item = null;
         }
+    }
+
+   IEnumerator Opening()
+    {
+        GameObject  
+            .Find("Background")
+            .GetComponent<SpriteRenderer>()
+            .sprite = openingBackground;
+
+        yield return new WaitForSeconds(3.0f);
+        GameObject
+            .Find("Background")
+            .GetComponent<SpriteRenderer>()
+            .sprite = gameBackground;
     }
 }
