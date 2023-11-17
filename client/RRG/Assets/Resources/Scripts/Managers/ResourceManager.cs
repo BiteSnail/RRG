@@ -6,6 +6,8 @@ using UnityEngine;
 public class ResourceManager
 {
     private Dictionary<string /*id*/, Item /*item*/> items = new Dictionary<string, Item>();
+    private List<Item> itemList = new List<Item>();
+
     private Dictionary<string /*name*/, AudioClip /*Audio*/> audios = new Dictionary<string , AudioClip >();
    
     public void Start()
@@ -19,28 +21,44 @@ public class ResourceManager
         {
             Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Plastic");
             foreach (Item obj in objects)
+            {
                 items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
+                
         }
         {
             Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Can");
             foreach (Item obj in objects)
+            {
                 items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
 
         }
         {
             Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Paper");
             foreach (Item obj in objects)
+            {
                 items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
         }
         {
             Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Glass");
             foreach (Item obj in objects)
+            {
                 items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
         }
         {
             Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/General");
             foreach (Item obj in objects)
+            {
                 items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
         }
 
 
@@ -66,18 +84,8 @@ public class ResourceManager
 
     public Item GetRandomItem()
     {
-        string[] itemTypes = { "CA", "PA", "PL", "VI", "GL", "PE", "GE", "MI" };
-        int randType = Random.Range(0, itemTypes.Length);
-        int randNum;
-        Item ret = null;
-        randNum = Random.Range(0, 20);
-
-        while (!items.TryGetValue(itemTypes[randType] + randNum.ToString(), out ret))
-        {
-            randNum = Random.Range(0, 20);
-        }
-
-        return ret;
+        int randNum = Random.Range(0, itemList.Count);
+        return itemList[randNum];
     }
 
     public AudioClip GetAudio(string name)
