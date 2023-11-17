@@ -12,7 +12,7 @@ public class SaveManager
         LoadSaves();
     }
 
-    private LoadSaves()
+    private void LoadSaves()
     {
         this.saves = new List<Save>();
         //파일에서 불러오는 것도 구상 중
