@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7139722735278399968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.4, y: -0.72, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33c45bbd04065049afe44ca31746737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
   itemName: "\uC6FB \uBE0C\uB7EC\uC26C"
   itemInfo: "\uC6FB \uBE0C\uB7EC\uC26C\uB294 \uACE0\uBB34, \uB098\uBB34, \uD50C\uB77C\uC2A4\uD2F1
     \uB4F1\uC774 \uC11E\uC778 \uBCF5\uD569 \uC7AC\uC9C8\uC774\uAE30 \uB54C\uBB38\uC5D0
