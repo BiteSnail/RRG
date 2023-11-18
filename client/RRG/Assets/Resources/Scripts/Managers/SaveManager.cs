@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class SaveManager
 {
@@ -38,5 +39,20 @@ public class SaveManager
         saves.Add(currentSave);
         currentSave = null;
         return string.Format("wrongs: %d \ncorrect: %d", currentSave.getWrongScore(), currentSave.getCorrectScore());
+    }
+
+    public void saveToLocal()
+    {
+        string jsonData = JsonUtility.ToJson(saves);
+        string path = Path.Combine(Application.dataPath, "playerData.json");
+        File.WriteAllText(path, jsonData);
+    }
+
+    public void loadFromLocal()
+    {
+        string path = Path.Combine(Application.dataPath, "playerData.json");
+        string jsonData = File.ReadAllText(path);
+
+        saves = JsonUtility.FromJson<List<Save>>(jsonData);
     }
 }

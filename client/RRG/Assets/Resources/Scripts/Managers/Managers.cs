@@ -20,6 +20,9 @@ public class Managers : MonoBehaviour
     SoundManager sound = new SoundManager();
     public static SoundManager Sound { get { Init(); return instance.sound; } }
 
+    SaveManager save = new SaveManager();
+    public static SaveManager Save { get { Init(); return instance.save; } }
+
     private void Start()
     {
         Init();
