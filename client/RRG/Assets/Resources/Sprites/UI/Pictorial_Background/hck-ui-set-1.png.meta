@@ -120,13 +120,13 @@ TextureImporter:
       name: hck-ui-set-1_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 65
         y: 64
-        width: 130
-        height: 128
+        width: 62
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 63}
       outline: []
       physicsShape: []
       tessellationDetail: 0
