@@ -12,8 +12,6 @@ public class Stage1 : StageBase
 
     Vector3 targetPos;
 
-    bool nowSucceed = true;
-
     public override void Start()
     {
         base.Start();
@@ -34,10 +32,8 @@ public class Stage1 : StageBase
             if (IsCorrectHit() && item.type == ItemType.General)
             {
                 //맞음 
-                //효과음 재생
-                //
                 targetPos = generalPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("General");
             }
             else
             {
@@ -50,7 +46,7 @@ public class Stage1 : StageBase
             {
                 //맞음 
                 targetPos = plasticPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("Plastic");
             }
             else
             {
@@ -63,7 +59,7 @@ public class Stage1 : StageBase
             {
                 //맞음 
                 targetPos = canPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("Can");
             }
             else
             {
@@ -77,7 +73,7 @@ public class Stage1 : StageBase
             {
                 //맞음 
                 targetPos = glassPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("Glass");
             }
             else
             {
@@ -90,7 +86,7 @@ public class Stage1 : StageBase
             {
                 //맞음 
                 targetPos = paperPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("Paper");
             }
             else
             {
@@ -137,7 +133,6 @@ public class Stage1 : StageBase
                 }
 
                 item.transform.localPosition = new Vector2(0, 0);
-                nowSucceed = false;
                 Managers.Sound.Play("ItemSpawn");
             }
         }
