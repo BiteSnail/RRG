@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEditor.Progress;
 
 public class Stage1 : StageBase
@@ -16,11 +17,13 @@ public class Stage1 : StageBase
     public override void Start()
     {
         base.Start();
-        Managers.Sound.Play("School", SoundManager.Sound.Bgm);
+        Managers.Sound.Play("School_cut", SoundManager.Sound.Bgm);
+
+        StartCoroutine(EndStage());
     }
     private void Update()
     {
-
+    
         currentTime += Time.deltaTime;
 
         if (item == null)
@@ -137,7 +140,12 @@ public class Stage1 : StageBase
                 nowSucceed = false;
                 Managers.Sound.Play("ItemSpawn");
             }
-
         }
+    }
+
+    IEnumerator EndStage()
+    {
+        yield return new WaitForSeconds(Managers.Resource.GetAudio("School_cut").length);
+        SceneManager.LoadScene("Main");
     }
 }
