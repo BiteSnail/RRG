@@ -40,6 +40,7 @@ public class Stage1 : StageBase
             else
             {
                 //틀림
+                Managers.Sound.Play("Fail");
             }
             pressed = true;
         }
@@ -54,6 +55,7 @@ public class Stage1 : StageBase
             else
             {
                 //틀림
+                Managers.Sound.Play("Fail");
             }
             pressed = true;
         }
@@ -68,6 +70,7 @@ public class Stage1 : StageBase
             else
             {
                 //틀림
+                Managers.Sound.Play("Fail");
             }
             pressed = true;
         }
@@ -83,6 +86,7 @@ public class Stage1 : StageBase
             else
             {
                 //틀림
+                Managers.Sound.Play("Fail");
             }
             pressed = true;
         }
@@ -97,6 +101,7 @@ public class Stage1 : StageBase
             else
             {
                 //틀림
+                Managers.Sound.Play("Fail");
             }
             pressed = true;
         }
@@ -144,6 +149,7 @@ public class Stage1 : StageBase
                 Managers.Sound.Play("ItemSpawn");
             }
         }
+
     }
 
     IEnumerator EndStage()
@@ -151,4 +157,6 @@ public class Stage1 : StageBase
         yield return new WaitForSeconds(Managers.Resource.GetAudio("School_cut").length);
         SceneManager.LoadScene("Main");
     }
+
+    
 }

@@ -77,6 +77,7 @@ public class ResourceManager
         audios.Add("Plastic", Resources.Load<AudioClip>("Sounds/SE/plastic"));
         audios.Add("Glass", Resources.Load<AudioClip>("Sounds/SE/fresh_snap-37385"));
         audios.Add("General", Resources.Load<AudioClip>("Sounds/SE/punch-boxing"));
+        audios.Add("Fail", Resources.Load<AudioClip>("Sounds/SE/failure-drum"));
     }
 
     public Item GetItem(string name)
