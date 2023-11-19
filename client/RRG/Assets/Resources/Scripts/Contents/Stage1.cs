@@ -8,6 +8,12 @@ public class Stage1 : StageBase
 {
 
     Vector3 targetPos;
+
+    public override void Start()
+    {
+        base.Start();
+        Managers.Sound.Play("School", SoundManager.Sound.Bgm);
+    }
     private void Update()
     {
         if (!gameStarted) return;

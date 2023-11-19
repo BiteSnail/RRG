@@ -28,7 +28,7 @@ public class StageBase : MonoBehaviour
 
     protected bool gameStarted = false;
 
-    void Start()
+    public virtual void Start()
     {
         StartCoroutine(Opening());
         foreach (int num in hitBeatNums)

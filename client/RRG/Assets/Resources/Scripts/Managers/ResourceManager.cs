@@ -66,8 +66,8 @@ public class ResourceManager
 
     private void LoadAudioClips()
     {
-        //TODO
-        //오디오 클립 넣고 로드하기
+
+        audios.Add("School", Resources.Load<AudioClip>("Sounds/School"));
     }
 
     public Item GetItem(string name)
