@@ -93,6 +93,7 @@ public class Stage1 : StageBase
             if(distance > 0.1f)
             {
                 item.transform.position = Vector2.Lerp(item.transform.position, targetPos, itemMoveSpeed * Time.deltaTime);
+                item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
             }
         }
 
