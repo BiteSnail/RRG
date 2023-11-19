@@ -16,7 +16,7 @@ public class SoundManager
 
     public void Start()
     {
-        
+        Init();
     }
     public void Init()
     {
@@ -34,7 +34,8 @@ public class SoundManager
                 go.transform.parent = root.transform;
             }
 
-            _audioSources[(int)Sound.Bgm].loop = true; // bgm 재생기는 무한 반복 재생
+            _audioSources[(int)Sound.Bgm].volume = 0.5f;
+
         }
 
 

@@ -6,14 +6,13 @@ public class StageBase : MonoBehaviour
 {
     public int bpm = 60; //설정 필요
     protected double currentTime = 0;
-    public double exceedRange = 0.5f;
+    public double exceedRange = 0.2f;
 
     public int[] hitBeatNums; //스테이지별로 작성 필요
     protected bool[] isHitBeat = new bool[200];
     protected int nowBeatIndex = 0;
 
     protected Item item = null;
-    public GameObject itemPos;
 
     public Sprite gameBackground;
     public Sprite openingBackground;
@@ -26,20 +25,25 @@ public class StageBase : MonoBehaviour
     public GameObject glassPos;
     public GameObject generalPos;
 
+    public GameObject hitBox;
+
     protected bool gameStarted = false;
 
-    void Start()
+    public virtual void Start()
     {
         StartCoroutine(Opening());
         foreach (int num in hitBeatNums)
             isHitBeat[num] = true;
+        hitBox.SetActive(false);
     }
 
 
     protected bool IsCorrectHit()
     {
-        return (currentTime < exceedRange && isHitBeat[nowBeatIndex - 1]) 
-            || (60d/bpm - currentTime < exceedRange && isHitBeat[nowBeatIndex]);
+        //return (currentTime < exceedRange && isHitBeat[nowBeatIndex - 1]) 
+        //   || (60d/bpm - currentTime < exceedRange && isHitBeat[nowBeatIndex]);
+
+        return Vector2.Distance(item.transform.position, hitBox.transform.position) < exceedRange;
     }
 
     protected void DestroyItem()
@@ -65,5 +69,6 @@ public class StageBase : MonoBehaviour
             .sprite = gameBackground;
 
         gameStarted = true;
+        hitBox.SetActive(true);
     }
 }
