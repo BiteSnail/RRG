@@ -7,16 +7,22 @@ public class SaveManager
 {
     private List<Save> saves;
     private Save currentSave;
-    
-    void Start()
+    private string path = "playerData.json";
+
+
+    public void Start()
     {
         LoadSaves();
     }
 
     private void LoadSaves()
     {
+        if(File.Exists(Path.Combine(Application.dataPath, path)))
+        {
+            saves = loadFromLocal<List<Save>>(path);
+            return;
+        }
         this.saves = new List<Save>();
-        //파일에서 불러오는 것도 구상 중
     }
 
     public void startRecording(StageBase stage)
@@ -43,16 +49,18 @@ public class SaveManager
 
     public void saveToLocal()
     {
-        string jsonData = JsonUtility.ToJson(saves);
-        string path = Path.Combine(Application.dataPath, "playerData.json");
-        File.WriteAllText(path, jsonData);
+        saveToLocal(path, this.saves);
+    }
+    
+    public void saveToLocal<T>(string path, T obj)
+    {
+        string jsonData = JsonUtility.ToJson(obj);
+        File.WriteAllText(Path.Combine(Application.dataPath, path), jsonData);
     }
 
-    public void loadFromLocal()
+    public T loadFromLocal<T>(string path)
     {
-        string path = Path.Combine(Application.dataPath, "playerData.json");
-        string jsonData = File.ReadAllText(path);
-
-        saves = JsonUtility.FromJson<List<Save>>(jsonData);
+        string jsonData = File.ReadAllText(Path.Combine(Application.dataPath, path));
+        return JsonUtility.FromJson<T>(jsonData);
     }
 }

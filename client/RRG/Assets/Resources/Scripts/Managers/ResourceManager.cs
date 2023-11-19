@@ -6,7 +6,9 @@ using UnityEngine;
 public class ResourceManager
 {
     private Dictionary<string /*id*/, Item /*item*/> items = new Dictionary<string, Item>();
+    public Dictionary<string, Item> Items { get { return items; } }
     private List<Item> itemList = new List<Item>();
+    public List<Item> ItemList { get { return itemList; } }
 
     private Dictionary<string /*name*/, AudioClip /*Audio*/> audios = new Dictionary<string , AudioClip >();
    

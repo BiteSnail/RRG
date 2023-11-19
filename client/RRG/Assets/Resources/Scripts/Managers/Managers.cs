@@ -23,11 +23,16 @@ public class Managers : MonoBehaviour
     SaveManager save = new SaveManager();
     public static SaveManager Save { get { Init(); return instance.save; } }
 
+    EncyclopediaManager encyclopedia = new EncyclopediaManager();
+    public static EncyclopediaManager Encyclopedia { get { Init(); return instance.encyclopedia; } }
+
     private void Start()
     {
         Init();
         Resource.Start();
         sound.Start();
+        Save.Start();
+        Encyclopedia.Start();
     }
 
     private void Update()
