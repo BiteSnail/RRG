@@ -831,10 +831,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: pictorial Book
+  m_text: "\uBD84\uB9AC\uC218\uAC70 \uB3C4\uAC10"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
-  m_sharedMaterial: {fileID: -5548330784204661319, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9d93cbbb3e8c5914f9eae05b36c6501c, type: 2}
+  m_sharedMaterial: {fileID: -5602590300223622892, guid: 9d93cbbb3e8c5914f9eae05b36c6501c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
