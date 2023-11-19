@@ -106,6 +106,8 @@ public class Stage1 : StageBase
                 item = GameObject.Instantiate(randomItem);
                 item.transform.parent = itemPos.transform;
                 item.transform.localPosition = new Vector2(0, 0);
+
+                Managers.Sound.Play("ItemSpawn");
             }
 
         }

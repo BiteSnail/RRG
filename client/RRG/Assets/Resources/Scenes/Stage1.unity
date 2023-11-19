@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38257204}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.39, y: -1.79, z: 0}
+  m_LocalPosition: {x: -0.23, y: -2.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -891,9 +891,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000bfc13a89fed44189b5be782e76ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 60
+  bpm: 65
   exceedRange: 0.30000001192092896
-  hitBeatNums: 0300000005000000
+  hitBeatNums: 060000000a0000000e00000012000000160000001a0000001e00000022000000
   itemPos: {fileID: 38257204}
   gameBackground: {fileID: 21300000, guid: 6fb79025069d8d14581cdaa8a4148fc8, type: 3}
   openingBackground: {fileID: 21300000, guid: 1701248934a17774fb093b35fdc2bb9a, type: 3}
