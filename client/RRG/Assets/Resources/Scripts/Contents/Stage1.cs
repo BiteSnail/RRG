@@ -12,6 +12,8 @@ public class Stage1 : StageBase
 
     Vector3 targetPos;
 
+    bool pressed = true;
+
     public override void Start()
     {
         base.Start();
@@ -27,7 +29,7 @@ public class Stage1 : StageBase
         if (item == null)
             targetPos = itemSpawnPos.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Space)&& gameStarted) //특수키
+        if (Input.GetKeyDown(KeyCode.Space)&& gameStarted && !pressed) //특수키
         {
             if (IsCorrectHit() && item.type == ItemType.General)
             {
@@ -39,8 +41,9 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            pressed = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Q) && gameStarted) //플라스틱
+        else if (Input.GetKeyDown(KeyCode.Q) && gameStarted && !pressed) //플라스틱
         {
             if (IsCorrectHit() && item.type == ItemType.Plastic)
             {
@@ -52,8 +55,9 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            pressed = true;
         }
-        else if (Input.GetKeyDown(KeyCode.W) && gameStarted) //캔
+        else if (Input.GetKeyDown(KeyCode.W) && gameStarted && !pressed) //캔
         {
             if (IsCorrectHit() && item.type == ItemType.Can)
             {
@@ -65,9 +69,10 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            pressed = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.E) && gameStarted) //유리
+        else if (Input.GetKeyDown(KeyCode.E) && gameStarted && !pressed) //유리
         {
             if (IsCorrectHit() && item.type == ItemType.Glass)
             {
@@ -79,8 +84,9 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            pressed = true;
         }
-        else if (Input.GetKeyDown(KeyCode.R) && gameStarted) //종이
+        else if (Input.GetKeyDown(KeyCode.R) && gameStarted && !pressed) //종이
         {
             if (IsCorrectHit() && item.type == ItemType.Paper)
             {
@@ -92,6 +98,7 @@ public class Stage1 : StageBase
             {
                 //틀림
             }
+            pressed = true;
         }
 
         if (item)
@@ -132,6 +139,7 @@ public class Stage1 : StageBase
                     targetPos = itemPos_L.transform.position;
                 }
 
+                pressed = false;
                 item.transform.localPosition = new Vector2(0, 0);
                 Managers.Sound.Play("ItemSpawn");
             }
