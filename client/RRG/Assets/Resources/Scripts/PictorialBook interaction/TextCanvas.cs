@@ -17,9 +17,16 @@ public class TextCanvas : MonoBehaviour
         {
             return;
         }
-        Title.GetComponent<TextMeshProUGUI>().text = CurrentItem.itemName;
-        Description.GetComponent<TextMeshProUGUI>().text = CurrentItem.itemInfo;
         ItemImage.GetComponent<Image>().sprite = CurrentItem.GetComponent<SpriteRenderer>().sprite;
+        ItemImage.GetComponent<Image>().color = Color.black;
+        
+        if (Managers.Encyclopedia.Items[CurrentItem].IsEncounter)
+        {
+            Title.GetComponent<TextMeshProUGUI>().text = CurrentItem.itemName;
+            Description.GetComponent<TextMeshProUGUI>().text = CurrentItem.itemInfo;
+            ItemImage.GetComponent<Image>().color = Color.white;
+        }
+        
     }
 
     // Update is called once per frame
