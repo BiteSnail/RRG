@@ -12,7 +12,7 @@ public class Stage1 : StageBase
 
     Vector3 targetPos;
 
-    bool nowSucceed = true;
+    bool pressed = true;
 
     public override void Start()
     {
@@ -29,73 +29,76 @@ public class Stage1 : StageBase
         if (item == null)
             targetPos = itemSpawnPos.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Space)&& gameStarted) //특수키
+        if (Input.GetKeyDown(KeyCode.Space)&& gameStarted && !pressed) //특수키
         {
             if (IsCorrectHit() && item.type == ItemType.General)
             {
                 //맞음 
-                //효과음 재생
-                //
                 targetPos = generalPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("General");
             }
             else
             {
                 //틀림
             }
+            pressed = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Q) && gameStarted) //플라스틱
+        else if (Input.GetKeyDown(KeyCode.Q) && gameStarted && !pressed) //플라스틱
         {
             if (IsCorrectHit() && item.type == ItemType.Plastic)
             {
                 //맞음 
                 targetPos = plasticPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("Plastic");
             }
             else
             {
                 //틀림
             }
+            pressed = true;
         }
-        else if (Input.GetKeyDown(KeyCode.W) && gameStarted) //캔
+        else if (Input.GetKeyDown(KeyCode.W) && gameStarted && !pressed) //캔
         {
             if (IsCorrectHit() && item.type == ItemType.Can)
             {
                 //맞음 
                 targetPos = canPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("Can");
             }
             else
             {
                 //틀림
             }
+            pressed = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.E) && gameStarted) //유리
+        else if (Input.GetKeyDown(KeyCode.E) && gameStarted && !pressed) //유리
         {
             if (IsCorrectHit() && item.type == ItemType.Glass)
             {
                 //맞음 
                 targetPos = glassPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("Glass");
             }
             else
             {
                 //틀림
             }
+            pressed = true;
         }
-        else if (Input.GetKeyDown(KeyCode.R) && gameStarted) //종이
+        else if (Input.GetKeyDown(KeyCode.R) && gameStarted && !pressed) //종이
         {
             if (IsCorrectHit() && item.type == ItemType.Paper)
             {
                 //맞음 
                 targetPos = paperPos.transform.position;
-                nowSucceed = true;
+                Managers.Sound.Play("Paper");
             }
             else
             {
                 //틀림
             }
+            pressed = true;
         }
 
         if (item)
@@ -136,8 +139,8 @@ public class Stage1 : StageBase
                     targetPos = itemPos_L.transform.position;
                 }
 
+                pressed = false;
                 item.transform.localPosition = new Vector2(0, 0);
-                nowSucceed = false;
                 Managers.Sound.Play("ItemSpawn");
             }
         }

@@ -73,6 +73,12 @@ public class ResourceManager
         audios.Add("School_cut", Resources.Load<AudioClip>("Sounds/School_cut"));
         audios.Add("ItemSpawn", Resources.Load<AudioClip>("Sounds/SE/blop"));
         audios.Add("Beat", Resources.Load<AudioClip>("Sounds/SE/beat"));
+
+        audios.Add("Can", Resources.Load<AudioClip>("Sounds/SE/can"));
+        audios.Add("Paper", Resources.Load<AudioClip>("Sounds/SE/paper"));
+        audios.Add("Plastic", Resources.Load<AudioClip>("Sounds/SE/plastic"));
+        audios.Add("Glass", Resources.Load<AudioClip>("Sounds/SE/fresh_snap-37385"));
+        audios.Add("General", Resources.Load<AudioClip>("Sounds/SE/punch-boxing"));
     }
 
     public Item GetItem(string name)
