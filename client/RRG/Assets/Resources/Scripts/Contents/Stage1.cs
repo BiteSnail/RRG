@@ -6,6 +6,8 @@ using static UnityEditor.Progress;
 
 public class Stage1 : StageBase
 {
+    public GameObject itemPos_L;
+    public GameObject itemPos_R;
 
     Vector3 targetPos;
 
@@ -24,7 +26,7 @@ public class Stage1 : StageBase
         if (item == null)
             targetPos = itemSpawnPos.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Space)) //특수키
+        if (Input.GetKeyDown(KeyCode.Space)&& gameStarted) //특수키
         {
             if (IsCorrectHit() && item.type == ItemType.General)
             {
@@ -39,7 +41,7 @@ public class Stage1 : StageBase
                 //틀림
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Q)) //플라스틱
+        else if (Input.GetKeyDown(KeyCode.Q) && gameStarted) //플라스틱
         {
             if (IsCorrectHit() && item.type == ItemType.Plastic)
             {
@@ -52,7 +54,7 @@ public class Stage1 : StageBase
                 //틀림
             }
         }
-        else if (Input.GetKeyDown(KeyCode.W)) //캔
+        else if (Input.GetKeyDown(KeyCode.W) && gameStarted) //캔
         {
             if (IsCorrectHit() && item.type == ItemType.Can)
             {
@@ -66,7 +68,7 @@ public class Stage1 : StageBase
             }
         }
 
-        else if (Input.GetKeyDown(KeyCode.E) ) //유리
+        else if (Input.GetKeyDown(KeyCode.E) && gameStarted) //유리
         {
             if (IsCorrectHit() && item.type == ItemType.Glass)
             {
@@ -79,7 +81,7 @@ public class Stage1 : StageBase
                 //틀림
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R)) //종이
+        else if (Input.GetKeyDown(KeyCode.R) && gameStarted) //종이
         {
             if (IsCorrectHit() && item.type == ItemType.Paper)
             {
@@ -96,11 +98,16 @@ public class Stage1 : StageBase
         if (item)
         {
             float distance = Vector2.Distance(item.transform.position, targetPos);
-            if(distance > 0.1f)
+            if (distance > 0.1f)
             {
-                item.transform.position = Vector2.Lerp(item.transform.position, targetPos, itemMoveSpeed * Time.deltaTime);
-                item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
+                Vector2 direction = (targetPos - item.transform.position).normalized;
+                item.transform.Translate(direction * itemMoveSpeed * Time.deltaTime);
+
+                if (targetPos != itemPos_L.transform.position && targetPos != itemPos_R.transform.position)
+                    item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
             }
+            else if (targetPos != hitBox.transform.position)
+                DestroyItem();
         }
 
         if (currentTime >= 60d / bpm) //매 박자마다
@@ -112,23 +119,25 @@ public class Stage1 : StageBase
             {
                 Item randomItem = Managers.Resource.GetRandomItem();
                 item = GameObject.Instantiate(randomItem);
-                item.transform.parent = itemPos.transform;
+
+                //아이템 스폰 위치 (좌 / 우) 
+                int rand = Random.Range(0, 2);
+                if (rand == 0)
+                {
+                    item.transform.parent = itemPos_L.transform;
+                    targetPos =itemPos_R.transform.position;
+                }
+                else
+                {
+                    item.transform.parent = itemPos_R.transform;
+                    targetPos = itemPos_L.transform.position;
+                }
+
                 item.transform.localPosition = new Vector2(0, 0);
                 nowSucceed = false;
                 Managers.Sound.Play("ItemSpawn");
             }
 
         }
-        //다음 박자에 못눌렀으면
-        if(currentTime > exceedRange && item && isHitBeat[nowBeatIndex-1]== true && !nowSucceed)
-        {
-            //틀림(놓침)
-
-            DestroyItem();
-        }
-
-        //누른 경우 2박자 후에 아이템 사라짐
-        if (item && isHitBeat[nowBeatIndex - 2] == true && nowSucceed)
-            DestroyItem();
     }
 }
