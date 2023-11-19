@@ -18,7 +18,7 @@ public class StageBase : MonoBehaviour
     public Sprite gameBackground;
     public Sprite openingBackground;
 
-    public float itemMoveSpeed = 10f;
+    public float itemMoveSpeed = 30f;
     public GameObject itemSpawnPos;
     public GameObject canPos;
     public GameObject plasticPos;

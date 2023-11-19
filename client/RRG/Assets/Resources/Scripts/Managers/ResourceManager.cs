@@ -69,6 +69,7 @@ public class ResourceManager
 
         audios.Add("School", Resources.Load<AudioClip>("Sounds/School"));
         audios.Add("ItemSpawn", Resources.Load<AudioClip>("Sounds/SE/blop"));
+        audios.Add("Beat", Resources.Load<AudioClip>("Sounds/SE/beat"));
     }
 
     public Item GetItem(string name)

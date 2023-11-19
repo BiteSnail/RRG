@@ -9,6 +9,8 @@ public class Stage1 : StageBase
 
     Vector3 targetPos;
 
+    bool nowSucceed = true;
+
     public override void Start()
     {
         base.Start();
@@ -16,7 +18,6 @@ public class Stage1 : StageBase
     }
     private void Update()
     {
-        if (!gameStarted) return;
 
         currentTime += Time.deltaTime;
 
@@ -31,6 +32,7 @@ public class Stage1 : StageBase
                 //효과음 재생
                 //
                 targetPos = generalPos.transform.position;
+                nowSucceed = true;
             }
             else
             {
@@ -43,6 +45,7 @@ public class Stage1 : StageBase
             {
                 //맞음 
                 targetPos = plasticPos.transform.position;
+                nowSucceed = true;
             }
             else
             {
@@ -55,6 +58,7 @@ public class Stage1 : StageBase
             {
                 //맞음 
                 targetPos = canPos.transform.position;
+                nowSucceed = true;
             }
             else
             {
@@ -68,6 +72,7 @@ public class Stage1 : StageBase
             {
                 //맞음 
                 targetPos = glassPos.transform.position;
+                nowSucceed = true;
             }
             else
             {
@@ -80,6 +85,7 @@ public class Stage1 : StageBase
             {
                 //맞음 
                 targetPos = paperPos.transform.position;
+                nowSucceed = true;
             }
             else
             {
@@ -101,23 +107,28 @@ public class Stage1 : StageBase
         {
             nowBeatIndex++;
             currentTime -= 60d / bpm;
+            //Managers.Sound.Play("Beat");
             if (isHitBeat[nowBeatIndex] == true)
             {
                 Item randomItem = Managers.Resource.GetRandomItem();
                 item = GameObject.Instantiate(randomItem);
                 item.transform.parent = itemPos.transform;
                 item.transform.localPosition = new Vector2(0, 0);
-
+                nowSucceed = false;
                 Managers.Sound.Play("ItemSpawn");
             }
 
         }
         //다음 박자에 못눌렀으면
-        if(currentTime > exceedRange && item && isHitBeat[nowBeatIndex-1] == true)
+        if(currentTime > exceedRange && item && isHitBeat[nowBeatIndex-1]== true && !nowSucceed)
         {
             //틀림(놓침)
 
             DestroyItem();
         }
+
+        //누른 경우 2박자 후에 아이템 사라짐
+        if (item && isHitBeat[nowBeatIndex - 2] == true && nowSucceed)
+            DestroyItem();
     }
 }
