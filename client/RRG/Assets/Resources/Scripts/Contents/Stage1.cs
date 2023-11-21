@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 public class Stage1 : StageBase
 {
     public GameObject itemPos_L;
     public GameObject itemPos_R;
-
+    public TextMeshProUGUI respondText;
     Vector3 targetPos;
 
     bool pressed = true;
+
 
     public override void Start()
     {
@@ -31,77 +32,123 @@ public class Stage1 : StageBase
 
         if (Input.GetKeyDown(KeyCode.Space)&& gameStarted && !pressed) //특수키
         {
-            if (IsCorrectHit() && item.type == ItemType.General)
+            if(IsCorrectHit())
             {
-                //맞음 
-                targetPos = generalPos.transform.position;
-                Managers.Sound.Play("General");
+                if (item.type == ItemType.General)
+                {
+                    //맞음 
+                    targetPos = generalPos.transform.position;
+                    Managers.Sound.Play("General");
+                    SetCorrectText();
+                }
+                else //박자는 맞았는데 분류가 틀림
+                {
+                    Managers.Sound.Play("Fail");
+                    SetWrongtText();
+                }   
             }
-            else
+            else //쓰레기를 놓침
             {
-                //틀림
-                Managers.Sound.Play("Fail");
+                SetMissText();
             }
-            pressed = true;
+
         }
         else if (Input.GetKeyDown(KeyCode.Q) && gameStarted && !pressed) //플라스틱
         {
-            if (IsCorrectHit() && item.type == ItemType.Plastic)
+            if (IsCorrectHit())            
             {
-                //맞음 
-                targetPos = plasticPos.transform.position;
-                Managers.Sound.Play("Plastic");
+                if(item.type == ItemType.Plastic)
+                {   
+                    //맞음 
+                    targetPos = plasticPos.transform.position;
+                    Managers.Sound.Play("Plastic");
+                    SetCorrectText();
+                }
+                else
+                {
+                    //틀림
+                    Managers.Sound.Play("Fail");
+                    SetWrongtText();
+                }
             }
             else
             {
-                //틀림
-                Managers.Sound.Play("Fail");
+                SetMissText();
             }
             pressed = true;
         }
         else if (Input.GetKeyDown(KeyCode.W) && gameStarted && !pressed) //캔
         {
-            if (IsCorrectHit() && item.type == ItemType.Can)
+            if(IsCorrectHit())
             {
-                //맞음 
-                targetPos = canPos.transform.position;
-                Managers.Sound.Play("Can");
+                if (item.type == ItemType.Can)
+                {
+                    //맞음 
+                    targetPos = canPos.transform.position;
+                    Managers.Sound.Play("Can");
+                    SetCorrectText();
+                }
+                else
+                {
+                    //틀림
+                    Managers.Sound.Play("Fail");
+                    SetWrongtText();
+                }
             }
             else
             {
-                //틀림
-                Managers.Sound.Play("Fail");
+                SetMissText();
             }
+            
             pressed = true;
         }
 
         else if (Input.GetKeyDown(KeyCode.E) && gameStarted && !pressed) //유리
         {
-            if (IsCorrectHit() && item.type == ItemType.Glass)
+            if(IsCorrectHit())
             {
-                //맞음 
-                targetPos = glassPos.transform.position;
-                Managers.Sound.Play("Glass");
+                if (item.type == ItemType.Glass)
+                {
+                    //맞음 
+                    targetPos = glassPos.transform.position;
+                    Managers.Sound.Play("Glass");
+                    SetCorrectText();
+                }
+                else
+                {
+                    //틀림
+                    Managers.Sound.Play("Fail");
+                    SetWrongtText();
+                }
             }
             else
             {
-                //틀림
-                Managers.Sound.Play("Fail");
+                SetMissText();
             }
+            
             pressed = true;
         }
         else if (Input.GetKeyDown(KeyCode.R) && gameStarted && !pressed) //종이
         {
-            if (IsCorrectHit() && item.type == ItemType.Paper)
+            if(IsCorrectHit())
             {
-                //맞음 
-                targetPos = paperPos.transform.position;
-                Managers.Sound.Play("Paper");
+                if (item.type == ItemType.Paper)
+                {
+                    //맞음 
+                    targetPos = paperPos.transform.position;
+                    Managers.Sound.Play("Paper");
+                    SetCorrectText();
+                }
+                else
+                {
+                    //틀림
+                    Managers.Sound.Play("Fail");
+                    SetWrongtText();
+                }
             }
             else
             {
-                //틀림
-                Managers.Sound.Play("Fail");
+                SetMissText();
             }
             pressed = true;
         }
@@ -118,7 +165,10 @@ public class Stage1 : StageBase
                     item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
             }
             else if (targetPos != hitBox.transform.position)
+            {
                 DestroyItem();
+            }
+                
         }
 
         if (currentTime >= 60d / bpm) //매 박자마다
@@ -158,5 +208,16 @@ public class Stage1 : StageBase
         SceneManager.LoadScene("Main");
     }
 
-    
+    void SetCorrectText()
+    {
+        respondText.SetText("좋아!");
+    }
+    void SetWrongtText()
+    {
+        respondText.SetText("틀렸어");
+    }
+    void SetMissText()
+    {
+        respondText.SetText("놓쳤어");
+    }
 }
