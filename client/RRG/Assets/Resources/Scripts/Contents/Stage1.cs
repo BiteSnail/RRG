@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class Stage1 : StageBase
 {
-    public GameObject itemPos_L;
-    public GameObject itemPos_R;
+    public GameObject itemGotoPos;
     public TextMeshProUGUI respondText;
     Vector3 targetPos;
+
+    public GameObject[] itemPositions;
+    int nowPosIdx = 0;
 
     bool pressed = true;
 
@@ -156,19 +158,15 @@ public class Stage1 : StageBase
         if (item)
         {
             float distance = Vector2.Distance(item.transform.position, targetPos);
-            if (distance > 0.1f)
+            if (distance > 0.1f && targetPos != itemGotoPos.transform.position)
             {
                 Vector2 direction = (targetPos - item.transform.position).normalized;
                 item.transform.Translate(direction * itemMoveSpeed * Time.deltaTime);
 
-                if (targetPos != itemPos_L.transform.position && targetPos != itemPos_R.transform.position)
-                    item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
+                item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
             }
-            else if (targetPos != hitBox.transform.position)
-            {
-                DestroyItem();
-            }
-                
+            else if (distance < 0.1f && targetPos != itemGotoPos.transform.position)
+                DestroyItem();    
         }
 
         if (currentTime >= 60d / bpm) //매 박자마다
@@ -178,29 +176,25 @@ public class Stage1 : StageBase
             //Managers.Sound.Play("Beat");
             if (isHitBeat[nowBeatIndex] == true)
             {
+                if (item) DestroyItem();
                 Item randomItem = Managers.Resource.GetRandomItem();
                 item = GameObject.Instantiate(randomItem);
                 randomItem.isEncounter = true;
 
-                //아이템 스폰 위치 (좌 / 우) 
-                int rand = Random.Range(0, 2);
-                if (rand == 0)
-                {
-                    item.transform.parent = itemPos_L.transform;
-                    targetPos =itemPos_R.transform.position;
-                }
-                else
-                {
-                    item.transform.parent = itemPos_R.transform;
-                    targetPos = itemPos_L.transform.position;
-                }
-
+                item.transform.parent = itemSpawnPos.transform;
+                targetPos =itemGotoPos.transform.position;
+             
                 pressed = false;
                 item.transform.localPosition = new Vector2(0, 0);
                 Managers.Sound.Play("ItemSpawn");
+                nowPosIdx = 0;
+            }
+            if (targetPos == itemGotoPos.transform.position)
+            {
+                item.transform.position = itemPositions[nowPosIdx].transform.position;
+                nowPosIdx++;
             }
         }
-
     }
 
     IEnumerator EndStage()
