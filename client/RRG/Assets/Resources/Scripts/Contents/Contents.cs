@@ -13,14 +13,14 @@ public class Contents : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(Item item in Managers.Encyclopedia.Items.Keys)
+        foreach(Item item in Managers.Resource.ItemList)
         {
-            createButton(item, Managers.Encyclopedia.Items[item]);
+            createButton(item);
         }
         setComponents();
     }
 
-    private void createButton(Item item, EncyclopediaInfo info)
+    private void createButton(Item item)
     {
         // 아이템 각각에 대한 액자 생성
         GameObject button = Instantiate(Button);
@@ -33,7 +33,7 @@ public class Contents : MonoBehaviour
         Image panelImage = panel.GetComponent<Image>();
         Item panelItem = panel.GetComponent<Item>();
         panelImage.sprite = item.GetComponent<SpriteRenderer>().sprite;
-        panelImage.color = info.IsEncounter ? Color.white : Color.black;
+        panelImage.color = item.isEncounter ? Color.white : Color.black;
         panelItem.itemName = item.itemName;
         panelItem.itemInfo = item.itemInfo;
     }

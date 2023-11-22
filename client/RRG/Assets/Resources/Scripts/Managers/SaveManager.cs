@@ -32,11 +32,13 @@ public class SaveManager
 
     public void wrong(Item item)
     {
+        eraseCloneText(item);
         currentSave.addWrong(item);
     }
 
     public void correct(Item item)
     {
+        eraseCloneText(item);
         currentSave.addCorrect(item);
     }
 
@@ -62,5 +64,10 @@ public class SaveManager
     {
         string jsonData = File.ReadAllText(Path.Combine(Application.dataPath, path));
         return JsonUtility.FromJson<T>(jsonData);
+    }
+
+    public void eraseCloneText(Item item)
+    {
+        item.name = item.name.Split("(")[0];
     }
 }
