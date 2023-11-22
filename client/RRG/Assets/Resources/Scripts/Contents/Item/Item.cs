@@ -19,4 +19,5 @@ public class Item : MonoBehaviour
     public Item pair_first = null;
     [SerializeField]
     public Item pair_second = null;
+    public bool isEncounter = false;
 }

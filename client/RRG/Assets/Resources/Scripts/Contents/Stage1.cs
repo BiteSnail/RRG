@@ -180,6 +180,7 @@ public class Stage1 : StageBase
             {
                 Item randomItem = Managers.Resource.GetRandomItem();
                 item = GameObject.Instantiate(randomItem);
+                randomItem.isEncounter = true;
 
                 //아이템 스폰 위치 (좌 / 우) 
                 int rand = Random.Range(0, 2);
