@@ -63,4 +63,9 @@ public class SaveManager
         string jsonData = File.ReadAllText(Path.Combine(Application.dataPath, path));
         return JsonUtility.FromJson<T>(jsonData);
     }
+
+    public void eraseCloneText(Item item)
+    {
+        item.name = item.name.Split("(")[0];
+    }
 }

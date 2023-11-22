@@ -20,7 +20,7 @@ public class TextCanvas : MonoBehaviour
         ItemImage.GetComponent<Image>().sprite = CurrentItem.GetComponent<SpriteRenderer>().sprite;
         ItemImage.GetComponent<Image>().color = Color.black;
         
-        if (Managers.Encyclopedia.Items[CurrentItem].IsEncounter)
+        if (CurrentItem.isEncounter)
         {
             Title.GetComponent<TextMeshProUGUI>().text = CurrentItem.itemName;
             Description.GetComponent<TextMeshProUGUI>().text = CurrentItem.itemInfo;

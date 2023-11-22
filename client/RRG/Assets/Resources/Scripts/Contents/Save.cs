@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Save : MonoBehaviour
 {
-    private List<Item> wrongItems;
-    private List<Item> correctItems;
+    private HashSet<Item> wrongItems;
+    private HashSet<Item> correctItems;
     private StageBase stage;
 
     public Save(StageBase stage)
     {
-        this.wrongItems = new List<Item>();
-        this.correctItems = new List<Item>();
+        this.wrongItems = new HashSet<Item>();
+        this.correctItems = new HashSet<Item>();
         this.stage = stage;
     }
 
     public void addWrong(Item item)
     {
-        wrongItems.Add(item);
+        wrongItems.Add(getItem(item));
     }
     
     public void addCorrect(Item item)
     {
-        correctItems.Add(item);
+        correctItems.Add(getItem(item));
     }
 
     public void updateDictionary()
@@ -38,5 +38,10 @@ public class Save : MonoBehaviour
     public int getCorrectScore()
     {
         return correctItems.Count;
+    }
+
+    public Item getItem(Item item)
+    {
+        return Managers.Resource.GetItem(item.name);
     }
 }
