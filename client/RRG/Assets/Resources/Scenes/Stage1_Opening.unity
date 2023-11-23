@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 1736649706}
   - component: {fileID: 1736649705}
   - component: {fileID: 1736649704}
+  - component: {fileID: 1736649708}
   m_Layer: 0
   m_Name: Stage1_Opening
   m_TagString: Untagged
@@ -330,3 +331,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1736649708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736649703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4bf4f3b079bcd4b9a1ca193b819b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

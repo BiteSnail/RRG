@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/Item_PictorialBook.unity
     guid: 7da2675611396e0459d53da1dbab6caf
+  - enabled: 1
+    path: Assets/Resources/Scenes/Stage1_Opening.unity
+    guid: d1b271f571e6e2843b4b6e7abbe4641c
   m_configObjects: {}
