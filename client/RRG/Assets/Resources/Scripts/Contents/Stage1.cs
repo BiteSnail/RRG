@@ -10,8 +10,10 @@ public class Stage1 : StageBase
     public GameObject itemGotoPos;
     public TextMeshProUGUI respondText;
     Vector3 targetPos;
-
+    public GameObject itemSpawnPos;
     public GameObject[] itemPositions;
+
+    public GameObject hitBox;
     int nowPosIdx = 0;
 
     bool pressed = true;
@@ -21,7 +23,6 @@ public class Stage1 : StageBase
     {
         base.Start();
         Managers.Sound.Play("School_cut", SoundManager.Sound.Bgm);
-
         StartCoroutine(EndStage());
     }
     private void Update()
@@ -32,7 +33,7 @@ public class Stage1 : StageBase
         if (item == null)
             targetPos = itemSpawnPos.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Space)&& gameStarted && !pressed) //특수키
+        if (Input.GetKeyDown(KeyCode.Space)&& !pressed) //특수키
         {
             if(IsCorrectHit())
             {
@@ -55,7 +56,7 @@ public class Stage1 : StageBase
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.Q) && gameStarted && !pressed) //플라스틱
+        else if (Input.GetKeyDown(KeyCode.Q) && !pressed) //플라스틱
         {
             if (IsCorrectHit())            
             {
@@ -79,7 +80,7 @@ public class Stage1 : StageBase
             }
             pressed = true;
         }
-        else if (Input.GetKeyDown(KeyCode.W) && gameStarted && !pressed) //캔
+        else if (Input.GetKeyDown(KeyCode.W) && !pressed) //캔
         {
             if(IsCorrectHit())
             {
@@ -105,7 +106,7 @@ public class Stage1 : StageBase
             pressed = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.E) && gameStarted && !pressed) //유리
+        else if (Input.GetKeyDown(KeyCode.E) && !pressed) //유리
         {
             if(IsCorrectHit())
             {
@@ -130,7 +131,7 @@ public class Stage1 : StageBase
             
             pressed = true;
         }
-        else if (Input.GetKeyDown(KeyCode.R) && gameStarted && !pressed) //종이
+        else if (Input.GetKeyDown(KeyCode.R) && !pressed) //종이
         {
             if(IsCorrectHit())
             {
@@ -214,5 +215,12 @@ public class Stage1 : StageBase
     void SetMissText()
     {
         respondText.SetText("놓쳤어");
+    }
+
+
+    protected bool IsCorrectHit()
+    {
+
+        return Vector2.Distance(item.transform.position, hitBox.transform.position) < exceedRange;
     }
 }

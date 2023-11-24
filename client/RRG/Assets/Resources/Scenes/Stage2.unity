@@ -336,7 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 572061227}
-  - component: {fileID: 572061226}
+  - component: {fileID: 572061228}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -344,39 +344,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &572061226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572061225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000bfc13a89fed44189b5be782e76ee8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bpm: 65
-  exceedRange: 0.2
-  hitBeatNums: 090000000d0000001100000015000000190000001d0000002100000025000000
-  gameBackground: {fileID: 21300000, guid: 7caa3870e1afe974b8696f1e6dc1cc01, type: 3}
-  openingBackground: {fileID: 21300000, guid: 1701248934a17774fb093b35fdc2bb9a, type: 3}
-  itemMoveSpeed: 5
-  itemSpawnPos: {fileID: 0}
-  canPos: {fileID: 1372993456}
-  plasticPos: {fileID: 878429354}
-  paperPos: {fileID: 417638823}
-  glassPos: {fileID: 796070244}
-  generalPos: {fileID: 697048829}
-  hitBox: {fileID: 0}
-  itemGotoPos: {fileID: 0}
-  respondText: {fileID: 0}
-  itemPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &572061227
 Transform:
   m_ObjectHideFlags: 0
@@ -392,6 +359,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &572061228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572061225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86995454a82113a4687e0c9bd81a3dc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bpm: 60
+  exceedRange: 0.20000000298023224
+  hitBeatNums: 
+  gameBackground: {fileID: 0}
+  openingBackground: {fileID: 0}
+  itemMoveSpeed: 10
+  canPos: {fileID: 1372993456}
+  plasticPos: {fileID: 878429354}
+  paperPos: {fileID: 417638823}
+  glassPos: {fileID: 796070244}
+  generalPos: {fileID: 697048829}
+  itemSpawnXStart: 0
+  itemSpawnXEnd: 0
+  itemSpawnY: 0
+  hitY: 0
 --- !u!1 &653594243
 GameObject:
   m_ObjectHideFlags: 0
