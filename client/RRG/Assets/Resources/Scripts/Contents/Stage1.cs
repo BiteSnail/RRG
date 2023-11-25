@@ -21,6 +21,7 @@ public class Stage1 : StageBase
     {
         base.Start();
         Managers.Sound.Play("School_cut", SoundManager.Sound.Bgm);
+        Managers.Save.startRecording(this);
 
         StartCoroutine(EndStage());
     }
@@ -42,16 +43,19 @@ public class Stage1 : StageBase
                     targetPos = generalPos.transform.position;
                     Managers.Sound.Play("General");
                     SetCorrectText();
+                    Managers.Save.correct(item);
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
                     SetWrongtText();
+                    Managers.Save.wrong(item);
                 }   
             }
             else //쓰레기를 놓침
             {
                 SetMissText();
+                Managers.Save.wrong(item);
             }
 
         }
@@ -65,17 +69,20 @@ public class Stage1 : StageBase
                     targetPos = plasticPos.transform.position;
                     Managers.Sound.Play("Plastic");
                     SetCorrectText();
+                    Managers.Save.correct(item);
                 }
                 else
                 {
                     //틀림
                     Managers.Sound.Play("Fail");
                     SetWrongtText();
+                    Managers.Save.wrong(item);
                 }
             }
             else
             {
                 SetMissText();
+                Managers.Save.wrong(item);
             }
             pressed = true;
         }
@@ -89,17 +96,20 @@ public class Stage1 : StageBase
                     targetPos = canPos.transform.position;
                     Managers.Sound.Play("Can");
                     SetCorrectText();
+                    Managers.Save.correct(item);
                 }
                 else
                 {
                     //틀림
                     Managers.Sound.Play("Fail");
                     SetWrongtText();
+                    Managers.Save.wrong(item);
                 }
             }
             else
             {
                 SetMissText();
+                Managers.Save.wrong(item);
             }
             
             pressed = true;
@@ -115,17 +125,20 @@ public class Stage1 : StageBase
                     targetPos = glassPos.transform.position;
                     Managers.Sound.Play("Glass");
                     SetCorrectText();
+                    Managers.Save.correct(item);
                 }
                 else
                 {
                     //틀림
                     Managers.Sound.Play("Fail");
                     SetWrongtText();
+                    Managers.Save.wrong(item);
                 }
             }
             else
             {
                 SetMissText();
+                Managers.Save.wrong(item);
             }
             
             pressed = true;
@@ -140,17 +153,20 @@ public class Stage1 : StageBase
                     targetPos = paperPos.transform.position;
                     Managers.Sound.Play("Paper");
                     SetCorrectText();
+                    Managers.Save.correct(item);
                 }
                 else
                 {
                     //틀림
                     Managers.Sound.Play("Fail");
                     SetWrongtText();
+                    Managers.Save.wrong(item);
                 }
             }
             else
             {
                 SetMissText();
+                Managers.Save.wrong(item);
             }
             pressed = true;
         }
@@ -200,7 +216,7 @@ public class Stage1 : StageBase
     IEnumerator EndStage()
     {
         yield return new WaitForSeconds(Managers.Resource.GetAudio("School_cut").length);
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Result");
     }
 
     void SetCorrectText()

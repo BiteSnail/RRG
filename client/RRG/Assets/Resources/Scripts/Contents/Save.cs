@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class Save : MonoBehaviour
 {
-    private HashSet<Item> wrongItems;
-    private HashSet<Item> correctItems;
-    private StageBase stage;
+    private HashSet<string> wrongItems;
+    public HashSet<string> WrongItems { get { return wrongItems; } }
+    private HashSet<string> correctItems;
+    public HashSet<string> CorrectItems { get { return correctItems; } }
+    private string stage;
+    public string Stage { get { return stage; } }
 
     public Save(StageBase stage)
     {
-        this.wrongItems = new HashSet<Item>();
-        this.correctItems = new HashSet<Item>();
-        this.stage = stage;
+        this.wrongItems = new HashSet<string>();
+        this.correctItems = new HashSet<string>();
+        this.stage = stage.GetType().Name;
     }
 
     public void addWrong(Item item)
     {
-        wrongItems.Add(getItem(item));
+        wrongItems.Add(item.name);
     }
     
     public void addCorrect(Item item)
     {
-        correctItems.Add(getItem(item));
+        correctItems.Add(item.name);
     }
 
     public void updateDictionary()

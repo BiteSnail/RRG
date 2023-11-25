@@ -17,11 +17,6 @@ public class SaveManager
 
     private void LoadSaves()
     {
-        if(File.Exists(Path.Combine(Application.dataPath, path)))
-        {
-            saves = loadFromLocal<List<Save>>(path);
-            return;
-        }
         this.saves = new List<Save>();
     }
 
@@ -42,11 +37,17 @@ public class SaveManager
         currentSave.addCorrect(item);
     }
 
-    public string report()
+    public HashSet<string> getCorrects()
     {
-        saves.Add(currentSave);
-        currentSave = null;
-        return string.Format("wrongs: %d \ncorrect: %d", currentSave.getWrongScore(), currentSave.getCorrectScore());
+        return currentSave.CorrectItems;
+    }
+    public HashSet<string> getWrongs()
+    {
+        return currentSave.WrongItems;
+    }
+    public string getStageName()
+    {
+        return currentSave.Stage;
     }
 
     public void saveToLocal()

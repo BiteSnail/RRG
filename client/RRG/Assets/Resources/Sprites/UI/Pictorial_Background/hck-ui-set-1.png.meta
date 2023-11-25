@@ -142,9 +142,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 144
-        width: 64
-        height: 48
+        y: 176
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,7 +249,7 @@ TextureImporter:
         x: 130
         y: 82
         width: 44
-        height: 25
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -536,6 +536,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: hck-ui-set-1_20
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 102
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed07aee275a1ecb43887bf58975de186
+      internalID: -564432577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hck-ui-set-1_21
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 102
+        width: 2
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb8ecc9dafdc78c45b48ca2493cd9da7
+      internalID: 1143152636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hck-ui-set-1_22
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 102
+        width: 2
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e3522f1c9b94a94d9258859cbdc3355
+      internalID: -1443236462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -560,6 +623,9 @@ TextureImporter:
       hck-ui-set-1_18: -245986945
       hck-ui-set-1_19: 1742362551
       hck-ui-set-1_2: 547213838
+      hck-ui-set-1_20: -564432577
+      hck-ui-set-1_21: 1143152636
+      hck-ui-set-1_22: -1443236462
       hck-ui-set-1_3: -526890436
       hck-ui-set-1_4: 1442596365
       hck-ui-set-1_5: -991096373
