@@ -2041,6 +2041,7 @@ GameObject:
   - component: {fileID: 1994270031}
   - component: {fileID: 1994270033}
   - component: {fileID: 1994270032}
+  - component: {fileID: 1994270034}
   m_Layer: 5
   m_Name: Reaction
   m_TagString: Untagged
@@ -2106,6 +2107,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994270030}
   m_CullTransparentMesh: 1
+--- !u!114 &1994270034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994270030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371fda9928cff824da3b0ea2d64c4415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positiveSprite: {fileID: 6943562768184086589, guid: 3765a367fb48f9040bca18add088d6d3, type: 3}
+  negativeSprite: {fileID: 7293623749340134194, guid: 3765a367fb48f9040bca18add088d6d3, type: 3}
+  slider: {fileID: 238102525}
 --- !u!1 &2130742067
 GameObject:
   m_ObjectHideFlags: 0
