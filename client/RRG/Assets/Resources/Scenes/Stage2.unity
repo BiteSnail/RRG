@@ -371,9 +371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86995454a82113a4687e0c9bd81a3dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 60
+  bpm: 128
   exceedRange: 0.20000000298023224
-  hitBeatNums: 050000000a0000000f000000
+  hitBeatNums: 0a000000140000001e000000
   gameBackground: {fileID: 0}
   openingBackground: {fileID: 0}
   itemMoveSpeed: 10

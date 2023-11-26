@@ -73,6 +73,7 @@ public class ResourceManager
         audios.Add("School_cut", Resources.Load<AudioClip>("Sounds/School_cut"));
         audios.Add("ItemSpawn", Resources.Load<AudioClip>("Sounds/SE/blop"));
         audios.Add("Beat", Resources.Load<AudioClip>("Sounds/SE/beat"));
+        audios.Add("Apart", Resources.Load<AudioClip>("Sounds/apartment"));
 
         audios.Add("Can", Resources.Load<AudioClip>("Sounds/SE/can"));
         audios.Add("Paper", Resources.Load<AudioClip>("Sounds/SE/paper"));

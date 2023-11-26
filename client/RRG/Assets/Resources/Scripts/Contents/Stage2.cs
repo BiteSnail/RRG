@@ -15,7 +15,7 @@ public class Stage2 : StageBase
     public override void Start()
     {
         base.Start();
-        Managers.Sound.Play("School_cut", SoundManager.Sound.Bgm);
+        Managers.Sound.Play("Apart", SoundManager.Sound.Bgm);
         Managers.Save.startRecording(this);
         StartCoroutine(EndStage());
     }
@@ -242,6 +242,7 @@ public class Stage2 : StageBase
                 DropItem();
             }
         }
+
     }
 
     void ItemSpawn()
@@ -291,7 +292,7 @@ public class Stage2 : StageBase
     }
     IEnumerator EndStage()
     {
-        yield return new WaitForSeconds(Managers.Resource.GetAudio("School_cut").length);
+        yield return new WaitForSeconds(Managers.Resource.GetAudio("Apart").length);
         SceneManager.LoadScene("Result");
     }
 }
