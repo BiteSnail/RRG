@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Presets;
-using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Stage2 : StageBase
 {
@@ -13,6 +12,13 @@ public class Stage2 : StageBase
 
     Vector3 targetPos;
     int pressed = 0;
+    public override void Start()
+    {
+        base.Start();
+        Managers.Sound.Play("School_cut", SoundManager.Sound.Bgm);
+        Managers.Save.startRecording(this);
+        StartCoroutine(EndStage());
+    }
 
     private void Update()
     {
@@ -61,8 +67,163 @@ public class Stage2 : StageBase
             }
             pressed++;
         }
-   
+        if (Input.GetKeyDown(KeyCode.Q) && pressed < 2) //특수키
+        {
+            if (IsCorrectHit())
+            {
+                if (item.type == ItemType.Plastic)
+                {
+                    //맞음 
+                    targetPos = generalPos.transform.position;
+                    Managers.Sound.Play("Plastic");
 
+                }
+                else if (item.type == ItemType.Mixed)
+                {
+                    if (item.pair_first.type == ItemType.Plastic
+                        || item.pair_second.type == ItemType.Plastic)
+                    {
+                        if (pressed == 1) //맞음(최종) 
+                        {
+                            //쓰레기 종류에 따라 분리된 쓰레기를 쓰레기통에 보냄
+                            MoveItemtoBox(item.pair_first);
+                            MoveItemtoBox(item.pair_second);
+                        }
+                    }
+                    else //박자는 맞았는데 분류가 틀림
+                    {
+                        Managers.Sound.Play("Fail");
+                    }
+                }
+                else //박자는 맞았는데 분류가 틀림
+                {
+                    Managers.Sound.Play("Fail");
+                }
+            }
+            else //쓰레기를 놓침
+            {
+
+            }
+            pressed++;
+        }
+        if (Input.GetKeyDown(KeyCode.W) && pressed < 2) //특수키
+        {
+            if (IsCorrectHit())
+            {
+                if (item.type == ItemType.Can)
+                {
+                    //맞음 
+                    targetPos = generalPos.transform.position;
+                    Managers.Sound.Play("Can");
+
+                }
+                else if (item.type == ItemType.Mixed)
+                {
+                    if (item.pair_first.type == ItemType.Can
+                        || item.pair_second.type == ItemType.Can)
+                    {
+                        if (pressed == 1) //맞음(최종) 
+                        {
+                            //쓰레기 종류에 따라 분리된 쓰레기를 쓰레기통에 보냄
+                            MoveItemtoBox(item.pair_first);
+                            MoveItemtoBox(item.pair_second);
+                        }
+                    }
+                    else //박자는 맞았는데 분류가 틀림
+                    {
+                        Managers.Sound.Play("Fail");
+                    }
+                }
+                else //박자는 맞았는데 분류가 틀림
+                {
+                    Managers.Sound.Play("Fail");
+                }
+            }
+            else //쓰레기를 놓침
+            {
+
+            }
+            pressed++;
+        }
+        if (Input.GetKeyDown(KeyCode.E) && pressed < 2) //특수키
+        {
+            if (IsCorrectHit())
+            {
+                if (item.type == ItemType.Glass)
+                {
+                    //맞음 
+                    targetPos = generalPos.transform.position;
+                    Managers.Sound.Play("Glass");
+
+                }
+                else if (item.type == ItemType.Mixed)
+                {
+                    if (item.pair_first.type == ItemType.Glass
+                        || item.pair_second.type == ItemType.Glass)
+                    {
+                        if (pressed == 1) //맞음(최종) 
+                        {
+                            //쓰레기 종류에 따라 분리된 쓰레기를 쓰레기통에 보냄
+                            MoveItemtoBox(item.pair_first);
+                            MoveItemtoBox(item.pair_second);
+                        }
+                    }
+                    else //박자는 맞았는데 분류가 틀림
+                    {
+                        Managers.Sound.Play("Fail");
+                    }
+                }
+                else //박자는 맞았는데 분류가 틀림
+                {
+                    Managers.Sound.Play("Fail");
+                }
+            }
+            else //쓰레기를 놓침
+            {
+
+            }
+            pressed++;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && pressed < 2) //특수키
+        {
+            if (IsCorrectHit())
+            {
+                if (item.type == ItemType.Paper)
+                {
+                    //맞음 
+                    targetPos = generalPos.transform.position;
+                    Managers.Sound.Play("Paper");
+
+                }
+                else if (item.type == ItemType.Mixed)
+                {
+                    if (item.pair_first.type == ItemType.Paper
+                        || item.pair_second.type == ItemType.Paper)
+                    {
+                        if (pressed == 1) //맞음(최종) 
+                        {
+                            //쓰레기 종류에 따라 분리된 쓰레기를 쓰레기통에 보냄
+                            MoveItemtoBox(item.pair_first);
+                            MoveItemtoBox(item.pair_second);
+                        }
+                    }
+                    else //박자는 맞았는데 분류가 틀림
+                    {
+                        Managers.Sound.Play("Fail");
+                    }
+                }
+                else //박자는 맞았는데 분류가 틀림
+                {
+                    Managers.Sound.Play("Fail");
+                }
+            }
+            else //쓰레기를 놓침
+            {
+
+            }
+            pressed++;
+        }
 
         if (currentTime >= 60d / bpm) //매 박자마다
         {
@@ -74,8 +235,9 @@ public class Stage2 : StageBase
                 ItemSpawn();
                 pressed = 0;
                 Managers.Sound.Play("ItemSpawn");
+                targetPos = Vector3.zero;
             }
-            //if (targetPos == itemGotoPos.transform.position)
+            else if (targetPos == Vector3.zero)
             {
                 DropItem();
             }
@@ -95,7 +257,7 @@ public class Stage2 : StageBase
     }
     void DropItem()
     {
-        item.transform.position = new Vector2(item.transform.position.x, transform.position.y + 1);
+        item.transform.position = new Vector2(item.transform.position.x, item.transform.position.y -1);
     }
 
     void MoveItemtoBox(Item tem)
@@ -126,5 +288,10 @@ public class Stage2 : StageBase
     bool IsCorrectHit()
     {
         return true;
+    }
+    IEnumerator EndStage()
+    {
+        yield return new WaitForSeconds(Managers.Resource.GetAudio("School_cut").length);
+        SceneManager.LoadScene("Result");
     }
 }
