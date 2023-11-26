@@ -1,5 +1,7 @@
+using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -74,7 +76,7 @@ public class Stage2 : StageBase
                 if (item.type == ItemType.Plastic)
                 {
                     //맞음 
-                    targetPos = generalPos.transform.position;
+                    targetPos = plasticPos.transform.position;
                     Managers.Sound.Play("Plastic");
 
                 }
@@ -113,7 +115,7 @@ public class Stage2 : StageBase
                 if (item.type == ItemType.Can)
                 {
                     //맞음 
-                    targetPos = generalPos.transform.position;
+                    targetPos = canPos.transform.position;
                     Managers.Sound.Play("Can");
 
                 }
@@ -152,7 +154,7 @@ public class Stage2 : StageBase
                 if (item.type == ItemType.Glass)
                 {
                     //맞음 
-                    targetPos = generalPos.transform.position;
+                    targetPos = glassPos.transform.position;
                     Managers.Sound.Play("Glass");
 
                 }
@@ -192,7 +194,7 @@ public class Stage2 : StageBase
                 if (item.type == ItemType.Paper)
                 {
                     //맞음 
-                    targetPos = generalPos.transform.position;
+                    targetPos = paperPos.transform.position;
                     Managers.Sound.Play("Paper");
 
                 }
@@ -242,7 +244,20 @@ public class Stage2 : StageBase
                 DropItem();
             }
         }
+        
+        if(item)
+        {
+            float distance = Vector2.Distance(item.transform.position, targetPos);
+            if (distance > 0.1f && targetPos != Vector3.zero)
+            {
+                Vector2 direction = (targetPos - item.transform.position).normalized;
+                item.transform.Translate(direction * itemMoveSpeed * Time.deltaTime);
 
+                item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
+            }
+            else if (distance < 0.1f && targetPos != Vector3.zero)
+                DestroyItem();
+        }
     }
 
     void ItemSpawn()
@@ -288,7 +303,7 @@ public class Stage2 : StageBase
 
     bool IsCorrectHit()
     {
-        return true;
+        return item.transform.position.y == hitY;
     }
     IEnumerator EndStage()
     {
