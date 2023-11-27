@@ -80,6 +80,19 @@ public class SoundManager
         AudioClip audioClip = GetOrAddAudioClip(name, type);
         Play(audioClip, type, pitch);
     }
+
+    public void PauseBGM()
+    {
+        if (_audioSources[(int)Sound.Bgm].isPlaying)
+            _audioSources[(int)Sound.Bgm].Pause();
+    }
+
+    public void UnPauseBGM()
+    {
+        if (!_audioSources[(int)Sound.Bgm].isPlaying)
+            _audioSources[(int)Sound.Bgm].UnPause();
+    }
+
     AudioClip GetOrAddAudioClip(string name, Sound type = Sound.Effect)
     {
         AudioClip audioClip = null;
