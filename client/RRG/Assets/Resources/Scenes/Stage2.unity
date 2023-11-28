@@ -373,7 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bpm: 128
   exceedRange: 0.20000000298023224
-  hitBeatNums: 0a000000140000001e000000
+  hitBeatNums: 0a000000140000001e00000023000000280000002d00000032000000
   gameBackground: {fileID: 0}
   openingBackground: {fileID: 0}
   itemMoveSpeed: 10

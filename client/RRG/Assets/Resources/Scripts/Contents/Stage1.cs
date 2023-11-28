@@ -194,7 +194,7 @@ public class Stage1 : StageBase
             if (isHitBeat[nowBeatIndex] == true)
             {
                 if (item) DestroyItem();
-                Item randomItem = Managers.Resource.GetRandomItem();
+                Item randomItem = Managers.Resource.GetRandomItemExceptMixed();
                 item = GameObject.Instantiate(randomItem);
                 randomItem.isEncounter = true;
 
