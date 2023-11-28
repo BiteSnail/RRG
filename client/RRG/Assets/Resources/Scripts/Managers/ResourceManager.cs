@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class ResourceManager
     public List<Item> ItemList { get { return itemList; } }
 
     private Dictionary<string /*name*/, AudioClip /*Audio*/> audios = new Dictionary<string , AudioClip >();
+
    
     public void Start()
     {
@@ -62,7 +64,14 @@ public class ResourceManager
                 itemList.Add(obj);
             }
         }
-
+        {
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Mixed");
+            foreach(Item obj in objects)
+            {
+                Items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
+        }
 
     }
 
@@ -93,6 +102,14 @@ public class ResourceManager
         {
             return null;
         }   
+    }
+
+    public Item GetRandomItemExceptMixed()
+    {
+        int randNum = Random.Range(0, itemList.Count);
+        while(itemList[randNum].type == ItemType.Mixed)
+            randNum = Random.Range(0, itemList.Count);
+        return itemList[randNum];
     }
 
     public Item GetRandomItem()
