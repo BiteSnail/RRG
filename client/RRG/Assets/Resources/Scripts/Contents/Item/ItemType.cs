@@ -9,5 +9,6 @@ public enum ItemType
     Glass,
     Paper,
     Plastic,
-    Mixed
+    Mixed,
+    Dirty
 }

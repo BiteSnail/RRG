@@ -72,7 +72,14 @@ public class ResourceManager
                 itemList.Add(obj);
             }
         }
-
+        {
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Dirty");
+            foreach (Item obj in objects)
+            {
+                Items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
+        }
     }
 
     private void LoadAudioClips()
@@ -104,17 +111,19 @@ public class ResourceManager
         }   
     }
 
-    public Item GetRandomItemExceptMixed()
+    public Item GetRandomItemExceptMixedAndDirty()
     {
         int randNum = Random.Range(0, itemList.Count);
-        while(itemList[randNum].type == ItemType.Mixed)
+        while(itemList[randNum].type == ItemType.Mixed || itemList[randNum].type == ItemType.Dirty)
             randNum = Random.Range(0, itemList.Count);
         return itemList[randNum];
     }
 
-    public Item GetRandomItem()
+    public Item GetRandomItemExceptDirty()
     {
         int randNum = Random.Range(0, itemList.Count);
+        while (itemList[randNum].type == ItemType.Dirty)
+            randNum = Random.Range(0, itemList.Count);
         return itemList[randNum];
     }
 

@@ -364,7 +364,7 @@ public class Stage2 : StageBase
 
     void ItemSpawn()
     {  
-        Item randomItem = Managers.Resource.GetRandomItem();
+        Item randomItem = Managers.Resource.GetRandomItemExceptDirty();
         item = GameObject.Instantiate(randomItem);
         randomItem.isEncounter = true;
 
