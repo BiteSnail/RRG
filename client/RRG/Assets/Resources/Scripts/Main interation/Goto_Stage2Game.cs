@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Goto_Stage1Game : MonoBehaviour
+public class Goto_Stage2Game : MonoBehaviour
 {
     void Start()
     {
@@ -12,7 +12,7 @@ public class Goto_Stage1Game : MonoBehaviour
 
     IEnumerator StartGame()
     {
-        yield return new WaitForSeconds(5f);
-        SceneManager.LoadScene("Stage1"); //Stage1 ÀüÈ¯
+        yield return new WaitForSeconds(7f);
+        SceneManager.LoadScene("Stage2"); //Stage2 ì „í™˜
     }
 }
