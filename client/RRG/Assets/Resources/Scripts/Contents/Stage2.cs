@@ -24,6 +24,7 @@ public class Stage2 : StageBase
 
     enum ManType { Bad, Normal, Good, Great}
     int score = 0;
+    bool manUp = true;
 
     public override void Start()
     {
@@ -56,6 +57,15 @@ public class Stage2 : StageBase
                         DropItem(itemList[i]);
                 }
             }
+
+            for(int i = 0; i < man.Length; i++)
+            {
+                if (manUp)
+                    man[i].transform.position = new Vector2(man[i].transform.position.x, man[i].transform.position.y-0.1f);
+                else
+                    man[i].transform.position = new Vector2(man[i].transform.position.x, man[i].transform.position.y+0.1f);
+            }
+            manUp = !manUp;
         }
 
         for (int i = 0; i < itemList.Count; i++)

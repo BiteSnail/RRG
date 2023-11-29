@@ -373,7 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bpm: 128
   exceedRange: 0.20000000298023224
-  hitBeatNums: 0a000000140000001e00000023000000280000002d00000032000000
+  hitBeatNums: 050000000a0000000f00000014000000190000001e00000023000000280000002d00000032000000
   gameBackground: {fileID: 0}
   openingBackground: {fileID: 0}
   itemMoveSpeed: 10
@@ -386,6 +386,11 @@ MonoBehaviour:
   itemSpawnXEnd: 5
   itemSpawnY: 4
   hitY: 0
+  man:
+  - {fileID: 530787163}
+  - {fileID: 1934251623}
+  - {fileID: 1459976216}
+  - {fileID: 1645291162}
 --- !u!1 &653594243
 GameObject:
   m_ObjectHideFlags: 0
