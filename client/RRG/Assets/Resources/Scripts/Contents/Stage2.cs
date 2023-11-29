@@ -2,6 +2,7 @@ using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Sockets;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,12 @@ public class Stage2 : StageBase
     List<Item> itemList = new List<Item>();
     Dictionary<Item, Vector3> itemTargetPos = new Dictionary<Item, Vector3>();
     Queue<Item> itemQ = new Queue<Item>();
+
+    [SerializeField] GameObject[] man;
+
+    enum ManType { Bad, Normal, Good, Great}
+    int score = 0;
+
     public override void Start()
     {
         base.Start();
@@ -98,6 +105,7 @@ public class Stage2 : StageBase
                     //맞음 
                     itemTargetPos[currentItem] = generalPos.transform.position;
                     Managers.Sound.Play("General");
+                    score++;
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -107,22 +115,25 @@ public class Stage2 : StageBase
                         if(pressed == 1) //맞음(최종) 
                         {
                             SeperateItem(item);
+                            score++;
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
+                        score--;
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
+                    score--;
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
-
+                score--;
             }
             pressed++;
         }
@@ -135,7 +146,7 @@ public class Stage2 : StageBase
                     //맞음 
                     itemTargetPos[currentItem] = plasticPos.transform.position;
                     Managers.Sound.Play("Plastic");
-
+                    score++;
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -145,22 +156,25 @@ public class Stage2 : StageBase
                         if (pressed == 1) //맞음(최종) 
                         {
                             SeperateItem(item);
+                            score++;
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
+                        score--;
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
+                    score--;
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
-
+                score--;
             }
             pressed++;
         }
@@ -173,7 +187,7 @@ public class Stage2 : StageBase
                     //맞음 
                     itemTargetPos[currentItem] = canPos.transform.position;
                     Managers.Sound.Play("Can");
-
+                    score++;
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -183,22 +197,25 @@ public class Stage2 : StageBase
                         if (pressed == 1) //맞음(최종) 
                         {
                             SeperateItem(item);
+                            score++;
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
+                        score--;
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
+                    score--;
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
-
+                score--;
             }
             pressed++;
         }
@@ -211,7 +228,7 @@ public class Stage2 : StageBase
                     //맞음 
                     itemTargetPos[currentItem] = glassPos.transform.position;
                     Managers.Sound.Play("Glass");
-
+                    score++;
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -221,22 +238,25 @@ public class Stage2 : StageBase
                         if (pressed == 1) //맞음(최종) 
                         {
                             SeperateItem(item);
+                            score++;
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
+                        score--;
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
+                    score--;
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
-
+                score--;
             }
             pressed++;
         }
@@ -250,7 +270,7 @@ public class Stage2 : StageBase
                     //맞음 
                     itemTargetPos[currentItem] = paperPos.transform.position;
                     Managers.Sound.Play("Paper");
-
+                    score++;
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -260,26 +280,51 @@ public class Stage2 : StageBase
                         if (pressed == 1) //맞음(최종) 
                         {
                             SeperateItem(item);
+                            score++;
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
+                        score--;
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
+                    score--;
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
-
+                score--;
             }
             pressed++;
         }
 
+       if(score < -2)
+        {
+            man[(int)ManType.Bad].SetActive(true);
+            man[(int)ManType.Normal].SetActive(false);
+        }
+       else if (score < 5)
+        {
+            man[(int)ManType.Bad].SetActive(false);
+            man[(int)ManType.Normal].SetActive(true);
+            man[(int)ManType.Good].SetActive(false);
+        }
+       else if (score < 10)
+        {
+            man[(int)ManType.Normal].SetActive(false);
+            man[(int)ManType.Good].SetActive(true);
+            man[(int)ManType.Great].SetActive(false);
+        }
+        else
+        {
+            man[(int)ManType.Good].SetActive(false);
+            man[(int)ManType.Great].SetActive(true);
+        }
     }
 
     void ItemSpawn()
