@@ -49,7 +49,7 @@ public class Stage2 : StageBase
                 pressed = 0;
                 Managers.Sound.Play("ItemSpawn");
             }
-            else
+            
             {
                 for (int i = 0; i < itemList.Count; i++)
                 {
