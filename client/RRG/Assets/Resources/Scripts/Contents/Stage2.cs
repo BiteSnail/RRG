@@ -1,6 +1,7 @@
 using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,7 @@ public class Stage2 : StageBase
 
     List<Item> itemList = new List<Item>();
     Dictionary<Item, Vector3> itemTargetPos = new Dictionary<Item, Vector3>();
+    Queue<Item> itemQ = new Queue<Item>();
     public override void Start()
     {
         base.Start();
@@ -28,13 +30,66 @@ public class Stage2 : StageBase
     {
         currentTime += Time.deltaTime;
 
+        if (currentTime >= 60d / bpm) //매 박자마다
+        {
+            nowBeatIndex++;
+            currentTime -= 60d / bpm;
+            //Managers.Sound.Play("Beat");
+            if (isHitBeat[nowBeatIndex] == true)
+            {
+                ItemSpawn();
+                pressed = 0;
+                Managers.Sound.Play("ItemSpawn");
+            }
+            else
+            {
+                for (int i = 0; i < itemList.Count; i++)
+                {
+                    if (itemTargetPos[itemList[i]] == Vector3.zero)
+                        DropItem(itemList[i]);
+                }
+            }
+        }
+
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            Item item = itemList[i];
+            float distance = Vector2.Distance(item.transform.position, itemTargetPos[item]);
+            if (distance > 0.1f && itemTargetPos[item] != Vector3.zero)
+            {
+                Vector2 direction = (itemTargetPos[item] - item.transform.position).normalized;
+                item.transform.Translate(direction * itemMoveSpeed * Time.deltaTime);
+
+                item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
+            }
+            else if (distance < 0.1f && itemTargetPos[item] != Vector3.zero)
+            {
+                itemList.Remove(item);
+                itemTargetPos.Remove(item);
+                Destroy(item.gameObject);
+                i--;
+            }
+        }
+
 
         Item currentItem = null;
-        if (itemList.Count > 0)
-            currentItem = itemList[0];
+        if (itemQ.Count > 0)
+        {
+            currentItem = itemQ.Peek();
+        }
 
-      
-        if (Input.GetKey(KeyCode.Space) && pressed < 2 ) //특수키
+        if (currentItem.transform.position.y < hitY - 1)
+        {
+            itemQ.Dequeue();
+            currentItem = itemQ.Peek();
+            pressed = 0;
+        }
+            
+        if (currentItem.transform.position.y > hitY + 2)
+            return;
+
+
+        if (Input.GetKeyDown(KeyCode.Space) && pressed < 2 ) //특수키
         {
             if (IsCorrectHit(currentItem))
             {
@@ -43,7 +98,6 @@ public class Stage2 : StageBase
                     //맞음 
                     itemTargetPos[currentItem] = generalPos.transform.position;
                     Managers.Sound.Play("General");
-
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -67,11 +121,12 @@ public class Stage2 : StageBase
             }
             else //쓰레기를 놓침
             {
+                Managers.Sound.Play("Fail");
 
             }
             pressed++;
         }
-        if (Input.GetKey(KeyCode.Q) && pressed < 2) //특수키
+        if (Input.GetKeyDown(KeyCode.Q) && pressed < 2) //특수키
         {
             if (IsCorrectHit(currentItem))
             {
@@ -104,11 +159,12 @@ public class Stage2 : StageBase
             }
             else //쓰레기를 놓침
             {
+                Managers.Sound.Play("Fail");
 
             }
             pressed++;
         }
-        if (Input.GetKey(KeyCode.W) && pressed < 2) //특수키
+        if (Input.GetKeyDown(KeyCode.W) && pressed < 2) //특수키
         {
             if (IsCorrectHit(currentItem))
             {
@@ -141,11 +197,12 @@ public class Stage2 : StageBase
             }
             else //쓰레기를 놓침
             {
+                Managers.Sound.Play("Fail");
 
             }
             pressed++;
         }
-        if (Input.GetKey(KeyCode.E) && pressed < 2) //특수키
+        if (Input.GetKeyDown(KeyCode.E) && pressed < 2) //특수키
         {
             if (IsCorrectHit(currentItem))
             {
@@ -178,12 +235,13 @@ public class Stage2 : StageBase
             }
             else //쓰레기를 놓침
             {
+                Managers.Sound.Play("Fail");
 
             }
             pressed++;
         }
 
-        if (Input.GetKey(KeyCode.R) && pressed < 2) //특수키
+        if (Input.GetKeyDown(KeyCode.R) && pressed < 2) //특수키
         {
             if (IsCorrectHit(currentItem))
             {
@@ -216,52 +274,12 @@ public class Stage2 : StageBase
             }
             else //쓰레기를 놓침
             {
+                Managers.Sound.Play("Fail");
 
             }
             pressed++;
         }
 
-        if (currentTime >= 60d / bpm) //매 박자마다
-        {
-            nowBeatIndex++;
-            currentTime -= 60d / bpm;
-            //Managers.Sound.Play("Beat");
-            if (isHitBeat[nowBeatIndex] == true)
-            {
-                ItemSpawn();
-                pressed = 0;
-                Managers.Sound.Play("ItemSpawn");
-            }
-            else
-            {
-                for(int i = 0;i < itemList.Count; i++)
-                {
-                    if (itemTargetPos[itemList[i]] == Vector3.zero)
-                        DropItem(itemList[i]);
-                }
-            }
-        }
-        
-        for (int i = 0 ;i < itemList.Count;i++)
-        {
-            Item item = itemList[i];
-            float distance = Vector2.Distance(item.transform.position, itemTargetPos[item]);
-            if (distance > 0.1f && itemTargetPos[item] != Vector3.zero)
-            {
-                Vector2 direction = (itemTargetPos[item] - item.transform.position).normalized;
-                item.transform.Translate(direction * itemMoveSpeed * Time.deltaTime);
-
-                item.transform.localScale = Vector2.Lerp(item.transform.localScale, Vector2.zero, Time.deltaTime);
-            }
-            else if (distance < 0.1f && itemTargetPos[item] != Vector3.zero)
-            {
-                itemList.Remove(item);
-                itemTargetPos.Remove(item);
-                Destroy(item);
-                i--;
-            }
-        }
-       
     }
 
     void ItemSpawn()
@@ -275,7 +293,7 @@ public class Stage2 : StageBase
 
         itemList.Add(item);
         itemTargetPos.Add(item, Vector2.zero);
-        
+        itemQ.Enqueue(item); 
     }
     void DropItem(Item item)
     {
@@ -292,36 +310,38 @@ public class Stage2 : StageBase
         itemList.Add(second);
         itemTargetPos.Add(first, Vector3.zero);
         itemTargetPos.Add(second, Vector3.zero);
+        MoveItemtoBox(first);
+        MoveItemtoBox(second);
 
         itemList.Remove(item);
         itemTargetPos.Remove(item);
-        Destroy(item);
+        itemQ.Dequeue();
+        Destroy(item.gameObject);
         //쓰레기 종류에 따라 분리된 쓰레기를 쓰레기통에 보냄
-        MoveItemtoBox(first);
-        MoveItemtoBox(second);
+       
     }
 
     void MoveItemtoBox(Item tem)
     {
         if(tem.type == ItemType.General)
         {
-            itemTargetPos[item] = generalPos.transform.position;
+            itemTargetPos[tem] = generalPos.transform.position;
         }
         else if(tem.type == ItemType.Paper)
         {
-            itemTargetPos[item] = paperPos.transform.position;
+            itemTargetPos[tem] = paperPos.transform.position;
         }
-        else if(item.type == ItemType.Can)
+        else if(tem.type == ItemType.Can)
         {
-            itemTargetPos[item] = canPos.transform.position;
+            itemTargetPos[tem] = canPos.transform.position;
         }
-        else if(item.type == ItemType.Glass)
+        else if(tem.type == ItemType.Glass)
         {
-            itemTargetPos[item] = glassPos.transform.position;    
+            itemTargetPos[tem] = glassPos.transform.position;    
         }
-        else if (item.type == ItemType.Plastic)
+        else if (tem.type == ItemType.Plastic)
         {
-            itemTargetPos[item] = plasticPos.transform.position;  
+            itemTargetPos[tem] = plasticPos.transform.position;  
         }
 
     }

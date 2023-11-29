@@ -102,6 +102,7 @@ MonoBehaviour:
   itemInfo: "\uB3C4\uC2DC\uB77D\uC6A9 \uD50C\uB77C\uC2A4\uD2F1 \uC6A9\uAE30\uB294
     \uAE68\uB057\uC774 \uC138\uCC99 \uD6C4 \uD50C\uB77C\uC2A4\uD2F1\uC73C\uB85C \uBD84\uB9AC\uBC30\uCD9C\uD574\uC57C
     \uD569\uB2C8\uB2E4."
-  type: 1
+  type: 5
   pair_first: {fileID: -8499236667893705137, guid: caf473038c5579548a66e78f2102f46f, type: 3}
   pair_second: {fileID: 0}
+  isEncounter: 1
