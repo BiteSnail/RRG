@@ -116,6 +116,7 @@ public class Stage2 : StageBase
                     itemTargetPos[currentItem] = generalPos.transform.position;
                     Managers.Sound.Play("General");
                     score++;
+                    Managers.Save.correct(currentItem);
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -126,24 +127,28 @@ public class Stage2 : StageBase
                         {
                             SeperateItem(item);
                             score++;
+                            Managers.Save.correct(currentItem);
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
                         score--;
+                        Managers.Save.wrong(currentItem);
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
                     score--;
+                    Managers.Save.wrong(currentItem);
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
                 score--;
+                Managers.Save.wrong(currentItem);
             }
             pressed++;
         }
@@ -157,6 +162,7 @@ public class Stage2 : StageBase
                     itemTargetPos[currentItem] = plasticPos.transform.position;
                     Managers.Sound.Play("Plastic");
                     score++;
+                    Managers.Save.correct(currentItem);
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -167,24 +173,28 @@ public class Stage2 : StageBase
                         {
                             SeperateItem(item);
                             score++;
+                            Managers.Save.correct(currentItem);
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
                         score--;
+                        Managers.Save.wrong(currentItem);
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
                     score--;
+                    Managers.Save.wrong(currentItem);
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
                 score--;
+                Managers.Save.wrong(currentItem);
             }
             pressed++;
         }
@@ -198,6 +208,7 @@ public class Stage2 : StageBase
                     itemTargetPos[currentItem] = canPos.transform.position;
                     Managers.Sound.Play("Can");
                     score++;
+                    Managers.Save.correct(currentItem);
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -208,24 +219,28 @@ public class Stage2 : StageBase
                         {
                             SeperateItem(item);
                             score++;
+                            Managers.Save.correct(currentItem);
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
                         score--;
+                        Managers.Save.wrong(currentItem);
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
                     score--;
+                    Managers.Save.wrong(currentItem);
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
                 score--;
+                Managers.Save.wrong(currentItem);
             }
             pressed++;
         }
@@ -239,6 +254,7 @@ public class Stage2 : StageBase
                     itemTargetPos[currentItem] = glassPos.transform.position;
                     Managers.Sound.Play("Glass");
                     score++;
+                    Managers.Save.correct(currentItem);
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -249,24 +265,28 @@ public class Stage2 : StageBase
                         {
                             SeperateItem(item);
                             score++;
+                            Managers.Save.correct(currentItem);
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
                         score--;
+                        Managers.Save.wrong(currentItem);
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
                     score--;
+                    Managers.Save.wrong(currentItem);
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
                 score--;
+                Managers.Save.wrong(currentItem);
             }
             pressed++;
         }
@@ -281,6 +301,7 @@ public class Stage2 : StageBase
                     itemTargetPos[currentItem] = paperPos.transform.position;
                     Managers.Sound.Play("Paper");
                     score++;
+                    Managers.Save.correct(currentItem);
                 }
                 else if (currentItem.type == ItemType.Mixed)
                 {
@@ -291,24 +312,28 @@ public class Stage2 : StageBase
                         {
                             SeperateItem(item);
                             score++;
+                            Managers.Save.correct(currentItem);
                         }
                     }
                     else //박자는 맞았는데 분류가 틀림
                     {
                         Managers.Sound.Play("Fail");
                         score--;
+                        Managers.Save.wrong(currentItem);
                     }
                 }
                 else //박자는 맞았는데 분류가 틀림
                 {
                     Managers.Sound.Play("Fail");
                     score--;
+                    Managers.Save.wrong(currentItem);
                 }
             }
             else //쓰레기를 놓침
             {
                 Managers.Sound.Play("Fail");
                 score--;
+                Managers.Save.wrong(currentItem);
             }
             pressed++;
         }
