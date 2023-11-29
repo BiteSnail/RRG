@@ -12,7 +12,7 @@ public class Goto_Stage1Game : MonoBehaviour
 
     IEnumerator StartGame()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("Stage1"); //Stage1 ?¬ìœ¼ë¡??´ë™
     }
 }
