@@ -1598,7 +1598,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Eco Beats
+  m_text: Eco Beat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
   m_sharedMaterial: {fileID: -5548330784204661319, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
@@ -2542,7 +2542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Eco Beats
+  m_text: Eco Beat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
   m_sharedMaterial: {fileID: -5548330784204661319, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
