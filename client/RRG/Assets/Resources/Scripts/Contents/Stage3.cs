@@ -12,6 +12,7 @@ public class Stage3 : StageBase
     public Transform itemSpawnPos;
     public Transform[] itemPositions;
     public Transform itemGotoPos;
+    public GameObject keyAnimaiton;
     bool isCorrect = false;
     private Vector3 targetPos;
     int nowPosIdx = 0;
@@ -77,12 +78,14 @@ public class Stage3 : StageBase
         {
             temp = items[0];
             items.Remove(temp);
+            nowPosIdx--;
             if (items.Count == 0)
             {
                 items = null;
             }
         }
         Destroy(temp.gameObject);
+        pressed = false;
     }
 
     private bool ValidateKeyCode(KeyCode code)
@@ -111,17 +114,32 @@ public class Stage3 : StageBase
         pressed = false;
     }
 
+    private Item instantiateItem(Item origin, Transform pos)
+    {
+        Item newItem = Instantiate(origin);
+        newItem.transform.position = pos.position;
+        newItem.GetComponent<SpriteRenderer>().sortingLayerName = "Object";
+        return newItem;
+    }
+
     private void Seperate()
     {
+        if (!ValidateItemType(ItemType.Mixed))
+            return;
+        keyAnimaiton.SetActive(true);
         if (!ValidateKeyCode(KeyCode.Space))
             return;
-        items = new List<Item>();
-        if (item.pair_first)
-            items.Add(Instantiate(item.pair_first));
+        List<Item> temp = new List<Item>();
         if (item.pair_second)
-            items.Add(Instantiate(item.pair_second));
-        item = null;
+            temp.Add(instantiateItem(item.pair_second, itemPositions[nowPosIdx]));
+        if (item.pair_first)
+            temp.Add(instantiateItem(item.pair_first, itemPositions[nowPosIdx-1]));
+
+        DestroyItem();
+        items = temp;
+        
         pressed = false;
+        keyAnimaiton.SetActive(false);
     }
 
     private void Hit()
@@ -132,10 +150,10 @@ public class Stage3 : StageBase
         {
             if (ValidateKeyCode(codeAndType.Key) && ValidateItemType(codeAndType.Value))
             {
-                TargetPos = Vector3.MoveTowards(TargetPos, itemToPos[codeAndType.Value].position, 1000 * Time.deltaTime);
+                //아이템 이동하는 부분 만들기
+                TargetPos = itemToPos[codeAndType.Value].position;
                 Managers.Sound.Play(itemToAudio[codeAndType.Value]);
                 Managers.Save.correct(Item);
-                isCorrect = true;
                 return;
             }
         }
@@ -188,11 +206,11 @@ public class Stage3 : StageBase
         {
             nowBeatIndex++;
             currentTime -= 60d / bpm;
-            Managers.Sound.Play("Beat");
+            //Managers.Sound.Play("Beat");
             if (isHitBeat[nowBeatIndex] == true)
             {
-                if (item) DestroyItem();
-                Item randomItem = Managers.Resource.GetRandomItem();
+                while (Item) DestroyItem();
+                Item randomItem = Managers.Resource.GetRandomItemExceptDirty();
                 item = Instantiate(randomItem);
                 randomItem.isEncounter = true;
 
@@ -219,7 +237,7 @@ public class Stage3 : StageBase
     {
         if (items != null)
         {
-            for (int i = 1; i < items.Count; i++)
+            for (int i = items.Count-1; i > 0; i--)
             {
                 items[i].transform.position = items[i - 1].transform.position;
             }

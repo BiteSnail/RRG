@@ -128,6 +128,14 @@ public class ResourceManager
         return itemList[randNum];
     }
 
+    public Item GetRandomItemMixed()
+    {
+        int randNum = Random.Range(0, itemList.Count);
+        while (itemList[randNum].type != ItemType.Mixed)
+            randNum = Random.Range(0, itemList.Count);
+        return itemList[randNum];
+    }
+
     public AudioClip GetAudio(string name)
     {
         if (audios.ContainsKey(name))
