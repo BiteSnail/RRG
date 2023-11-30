@@ -87,6 +87,7 @@ public class ResourceManager
 
         audios.Add("School", Resources.Load<AudioClip>("Sounds/School"));
         audios.Add("School_cut", Resources.Load<AudioClip>("Sounds/School_cut"));
+        audios.Add("station_cut", Resources.Load<AudioClip>("Sounds/station_cut"));
         audios.Add("ItemSpawn", Resources.Load<AudioClip>("Sounds/SE/blop"));
         audios.Add("Beat", Resources.Load<AudioClip>("Sounds/SE/beat"));
         audios.Add("Apart", Resources.Load<AudioClip>("Sounds/apartment"));
@@ -123,6 +124,14 @@ public class ResourceManager
     {
         int randNum = Random.Range(0, itemList.Count);
         while (itemList[randNum].type == ItemType.Dirty)
+            randNum = Random.Range(0, itemList.Count);
+        return itemList[randNum];
+    }
+
+    public Item GetRandomItemMixed()
+    {
+        int randNum = Random.Range(0, itemList.Count);
+        while (itemList[randNum].type != ItemType.Mixed)
             randNum = Random.Range(0, itemList.Count);
         return itemList[randNum];
     }
