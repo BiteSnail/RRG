@@ -1478,7 +1478,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1279293118}
-        m_TargetAssemblyTypeName: Goto_Stage2, Assembly-CSharp
+        m_TargetAssemblyTypeName: Goto_Stage2Opening, Assembly-CSharp
         m_MethodName: GameScnesCtrl
         m_Mode: 1
         m_Arguments:
@@ -1536,7 +1536,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1279293113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21cd57d026c71eb4a9c2fd9fa72cbfa6, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f5b3a38cecf3114987248b3209e9427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1314218213
@@ -1598,7 +1598,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Eco Beats
+  m_text: Eco Beat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
   m_sharedMaterial: {fileID: -5548330784204661319, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
@@ -1687,7 +1687,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 177e05999780d644f8fb4e786ec362b5, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -2495,6 +2495,7 @@ GameObject:
   - component: {fileID: 1563802821}
   - component: {fileID: 1563802820}
   - component: {fileID: 1563802822}
+  - component: {fileID: 1563802823}
   m_Layer: 5
   m_Name: Tittle Shadow
   m_TagString: Untagged
@@ -2542,7 +2543,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Eco Beats
+  m_text: Eco Beat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
   m_sharedMaterial: {fileID: -5548330784204661319, guid: b1c8b628c003c9141965b3c18da340b2, type: 2}
@@ -2631,7 +2632,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e82932da74c27644ba21e157faae2ea7, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -2640,6 +2641,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!111 &1563802823
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563802818}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1633806417
 GameObject:
   m_ObjectHideFlags: 0
@@ -3332,7 +3348,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0323166df5af5414ca3b867ee6508f0d, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -3631,7 +3647,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: dacaf9c44f835a04ea278fa8399af052, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0

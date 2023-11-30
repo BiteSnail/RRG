@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class ResourceManager
     public List<Item> ItemList { get { return itemList; } }
 
     private Dictionary<string /*name*/, AudioClip /*Audio*/> audios = new Dictionary<string , AudioClip >();
+
    
     public void Start()
     {
@@ -62,8 +64,22 @@ public class ResourceManager
                 itemList.Add(obj);
             }
         }
-
-
+        {
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Mixed");
+            foreach(Item obj in objects)
+            {
+                Items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
+        }
+        {
+            Item[] objects = Resources.LoadAll<Item>("Prefabs/Items/Dirty");
+            foreach (Item obj in objects)
+            {
+                Items.Add(obj.name, obj);
+                itemList.Add(obj);
+            }
+        }
     }
 
     private void LoadAudioClips()
@@ -74,6 +90,7 @@ public class ResourceManager
         audios.Add("station_cut", Resources.Load<AudioClip>("Sounds/station_cut"));
         audios.Add("ItemSpawn", Resources.Load<AudioClip>("Sounds/SE/blop"));
         audios.Add("Beat", Resources.Load<AudioClip>("Sounds/SE/beat"));
+        audios.Add("Apart", Resources.Load<AudioClip>("Sounds/apartment"));
 
         audios.Add("Can", Resources.Load<AudioClip>("Sounds/SE/can"));
         audios.Add("Paper", Resources.Load<AudioClip>("Sounds/SE/paper"));
@@ -95,9 +112,19 @@ public class ResourceManager
         }   
     }
 
-    public Item GetRandomItem()
+    public Item GetRandomItemExceptMixedAndDirty()
     {
         int randNum = Random.Range(0, itemList.Count);
+        while(itemList[randNum].type == ItemType.Mixed || itemList[randNum].type == ItemType.Dirty)
+            randNum = Random.Range(0, itemList.Count);
+        return itemList[randNum];
+    }
+
+    public Item GetRandomItemExceptDirty()
+    {
+        int randNum = Random.Range(0, itemList.Count);
+        while (itemList[randNum].type == ItemType.Dirty)
+            randNum = Random.Range(0, itemList.Count);
         return itemList[randNum];
     }
 

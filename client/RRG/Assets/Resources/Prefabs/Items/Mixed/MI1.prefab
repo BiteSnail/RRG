@@ -103,6 +103,7 @@ MonoBehaviour:
     \uBD99\uC5B4\uC788\uB294 \uC0C1\uD45C \uB4F1\uC758 \uBE44\uB2D0 \uB77C\uBCA8\uC744
     \uAE68\uB057\uC774 \uB5BC\uC5B4\uB0B4 \uD50C\uB77C\uC2A4\uD2F1 \uD398\uD2B8\uBCD1\uACFC
     \uBE44\uB2D0\uB77C\uBCA8\uB85C \uBD84\uB9AC\uD569\uB2C8\uB2E4."
-  type: 1
+  type: 5
   pair_first: {fileID: 2148318149618355360, guid: 133917c7b738ae44792cbc94e95431db, type: 3}
   pair_second: {fileID: -5170223682165444365, guid: 8fe0cab64f360da48b4fadf5179a06d6, type: 3}
+  isEncounter: 1
