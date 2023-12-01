@@ -90,7 +90,7 @@ public class ResourceManager
         audios.Add("station_cut", Resources.Load<AudioClip>("Sounds/station_cut"));
         audios.Add("ItemSpawn", Resources.Load<AudioClip>("Sounds/SE/blop"));
         audios.Add("Beat", Resources.Load<AudioClip>("Sounds/SE/beat"));
-        audios.Add("Apart", Resources.Load<AudioClip>("Sounds/apartment"));
+        audios.Add("Apart", Resources.Load<AudioClip>("Sounds/apartment_cut"));
 
         audios.Add("Can", Resources.Load<AudioClip>("Sounds/SE/can"));
         audios.Add("Paper", Resources.Load<AudioClip>("Sounds/SE/paper"));
