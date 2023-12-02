@@ -50,3 +50,6 @@ TagManager:
   - name: Object
     uniqueID: 345522029
     locked: 0
+  - name: Flash
+    uniqueID: 453965407
+    locked: 0

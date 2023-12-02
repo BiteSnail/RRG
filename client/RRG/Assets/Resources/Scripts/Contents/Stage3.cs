@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Stage3 : StageBase
 {
     // Update is called once per frame
+    public GameObject background;
     public Transform preactionPos;
     public Transform seperatePos;
     public Transform hitPos;
@@ -127,18 +128,20 @@ public class Stage3 : StageBase
         if (!ValidateItemType(ItemType.Mixed))
             return;
         keyAnimaiton.SetActive(true);
-        if (!ValidateKeyCode(KeyCode.Space))
-            return;
-        List<Item> temp = new List<Item>();
-        if (item.pair_second)
-            temp.Add(instantiateItem(item.pair_second, itemPositions[nowPosIdx]));
-        if (item.pair_first)
-            temp.Add(instantiateItem(item.pair_first, itemPositions[nowPosIdx-1]));
+        if (ValidateKeyCode(KeyCode.Space))
+        {
+            List<Item> temp = new List<Item>();
+            if (item.pair_second)
+                temp.Add(instantiateItem(item.pair_second, itemPositions[nowPosIdx]));
+            if (item.pair_first)
+                temp.Add(instantiateItem(item.pair_first, itemPositions[nowPosIdx - 1]));
 
-        DestroyItem();
-        items = temp;
+            DestroyItem();
+            items = temp;
+
+            pressed = false;
+        }
         
-        pressed = false;
         keyAnimaiton.SetActive(false);
     }
 
@@ -146,18 +149,20 @@ public class Stage3 : StageBase
     {
         if (pressed)
             return;
+        // 정확한 키를 눌렀는지 확인
         foreach (var codeAndType in codeToItem)
         {
             if (ValidateKeyCode(codeAndType.Key) && ValidateItemType(codeAndType.Value))
             {
-                //아이템 이동하는 부분 만들기
                 TargetPos = itemToPos[codeAndType.Value].position;
                 Managers.Sound.Play(itemToAudio[codeAndType.Value]);
                 Managers.Save.correct(Item);
                 return;
             }
         }
+        //실패 시 Fail
         pressed = true;
+        StartCoroutine(ChangeColorOverTime());
         Managers.Sound.Play("Fail");
         Managers.Save.wrong(Item);
     }
@@ -211,11 +216,8 @@ public class Stage3 : StageBase
             {
                 while (Item) DestroyItem();
                 Item randomItem = Managers.Resource.GetRandomItemExceptDirty();
-                item = Instantiate(randomItem);
                 randomItem.isEncounter = true;
-
-                TargetPos = itemSpawnPos.transform.position;
-                Item.GetComponent<SpriteRenderer>().sortingLayerName="Object";
+                item = instantiateItem(randomItem, itemSpawnPos.transform);
 
                 pressed = false;
                 isCorrect = false;
@@ -251,6 +253,23 @@ public class Stage3 : StageBase
         SceneManager.LoadScene("Result");
     }
 
+    IEnumerator ChangeColorOverTime()
+    {
+        float durationTime = 0.5f;
+        int iterCount = 2;
+        while (iterCount>0) // Infinite loop to keep the background flashing
+        {
+            // Change to red
+            background.SetActive(true);
+            yield return new WaitForSeconds(durationTime);
+
+            // Change back to original color
+            background.SetActive(false);
+            yield return new WaitForSeconds(durationTime);
+            iterCount--;
+        }
+    }
+
     private bool IsPreactionPos()
     {
         return TargetPos.Equals(preactionPos.position);
@@ -265,4 +284,6 @@ public class Stage3 : StageBase
     {
         return TargetPos.Equals(hitPos.position);
     }
+
+    
 }
