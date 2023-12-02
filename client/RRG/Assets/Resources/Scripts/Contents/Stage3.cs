@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 public class Stage3 : StageBase
 {
     // Update is called once per frame
+    class PosItem
+    {
+        Item item;
+        int posIdx;
+    }
     public GameObject background;
     public Transform preactionPos;
     public Transform seperatePos;
@@ -18,11 +23,11 @@ public class Stage3 : StageBase
     private Vector3 targetPos;
     int nowPosIdx = 0;
     private Vector3 TargetPos { get { if (Item == null) return itemSpawnPos.position;  return Item.transform.position; } set { if(Item != null) Item.transform.position = value; } }
-    private List<Item> items;
+    private List<KeyValuePair<Item, int>> items = new List<KeyValuePair<Item, int>>();
     private Item Item { get { 
-            if (items == null) 
-                return item;
-            return items[0];
+            if (items.Count == 0) 
+                return null;
+            return items[0].Key;
         } }
 
     bool pressed = false;
@@ -67,37 +72,25 @@ public class Stage3 : StageBase
         StartCoroutine(EndStage());
     }
 
-    protected new void DestroyItem()
+    protected void DestroyItem(KeyValuePair<Item, int> temp)
     {
-        Item temp;
         if(items == null)
         {
-            temp = item;
-            item = null;
+            return;
         }
-        else
-        {
-            temp = items[0];
-            items.Remove(temp);
-            nowPosIdx--;
-            if (items.Count == 0)
-            {
-                items = null;
-            }
-        }
-        Destroy(temp.gameObject);
+        items.Remove(temp);
+        Destroy(temp.Key.gameObject);
         pressed = false;
     }
 
     private bool ValidateKeyCode(KeyCode code)
     {
-        bool flag = !pressed && Input.GetKeyDown(code);
-        return flag;
+        return !pressed && Input.GetKeyDown(code);
     }
 
-    private bool ValidateItemType(ItemType type)
+    private bool ValidateItemType(ItemType type, Item currentItem)
     {
-        return Item.type == type;
+        return type == currentItem.type;
     }
 
     private void Preaction()
@@ -123,40 +116,43 @@ public class Stage3 : StageBase
         return newItem;
     }
 
-    private void Seperate()
+    private void Seperate(KeyValuePair<Item, int> currentItem)
     {
-        if (!ValidateItemType(ItemType.Mixed))
+        if (!ValidateItemType(ItemType.Mixed, currentItem.Key))
             return;
-        keyAnimaiton.SetActive(true);
         if (ValidateKeyCode(KeyCode.Space))
         {
-            List<Item> temp = new List<Item>();
-            if (item.pair_second)
-                temp.Add(instantiateItem(item.pair_second, itemPositions[nowPosIdx]));
-            if (item.pair_first)
-                temp.Add(instantiateItem(item.pair_first, itemPositions[nowPosIdx - 1]));
+            if (currentItem.Key.pair_second)
+                items.Add(KeyValuePair.Create(
+                    instantiateItem(currentItem.Key.pair_second, itemPositions[currentItem.Value]), 
+                    currentItem.Value)
+                    );
+            if (currentItem.Key.pair_first)
+                items.Add(KeyValuePair.Create(
+                    instantiateItem(currentItem.Key.pair_first, itemPositions[currentItem.Value - 1]), 
+                    currentItem.Value)
+                    );
 
             DestroyItem();
-            items = temp;
 
             pressed = false;
         }
         
-        keyAnimaiton.SetActive(false);
+        
     }
 
-    private void Hit()
+    private void Hit(KeyValuePair<Item, int> currentItem)
     {
         if (pressed)
             return;
         // 정확한 키를 눌렀는지 확인
         foreach (var codeAndType in codeToItem)
         {
-            if (ValidateKeyCode(codeAndType.Key) && ValidateItemType(codeAndType.Value))
+            if (ValidateKeyCode(codeAndType.Key) && ValidateItemType(codeAndType.Value, currentItem.Key))
             {
                 TargetPos = itemToPos[codeAndType.Value].position;
                 Managers.Sound.Play(itemToAudio[codeAndType.Value]);
-                Managers.Save.correct(Item);
+                Managers.Save.correct(currentItem.Key);
                 return;
             }
         }
@@ -164,38 +160,54 @@ public class Stage3 : StageBase
         pressed = true;
         StartCoroutine(ChangeColorOverTime());
         Managers.Sound.Play("Fail");
-        Managers.Save.wrong(Item);
+        Managers.Save.wrong(currentItem.Key);
     }
 
     private void ButtonProcess()
     {
-        if (IsPreactionPos())
+        foreach(var currentItem in items)
         {
-            Preaction();
-            return;
-        }
-        if (IsSeperatePos())
-        {
-            Seperate();
-            return;
-        }
-        if (IsCorrectHit())
-        {
-            if (Input.anyKeyDown)
-                Hit();
+            if (IsPreactionPos(currentItem.Key.transform))
+            {
+                Preaction();
+            }
+            if (IsSeperatePos(currentItem.Key.transform))
+            {
+                Seperate(currentItem);
+            }
+            if (IsCorrectHit(currentItem.Key.transform))
+            {
+                if (Input.anyKeyDown)
+                {
+                    Hit(currentItem);
+                }
+            }
         }
     }
 
     private void CleanProcess()
     {
-        if (Item != null)
+        foreach (var currentItem in items)
         {
             foreach (var pos in GameObject.FindGameObjectsWithTag("Finish"))
             {
                 if (TargetPos.Equals(pos.transform.position))
-                    DestroyItem();
+                    DestroyItem(currentItem);
             }
         }
+    }
+
+    private void TurnOnOffGuide()
+    {
+        foreach (var currentItem in items)
+        {
+            if (ValidateItemType(ItemType.Mixed, currentItem.Key))
+            {
+                keyAnimaiton.SetActive(true);
+                return;
+            }
+        }
+        keyAnimaiton.SetActive(false);
     }
 
     private void Update()
@@ -212,12 +224,17 @@ public class Stage3 : StageBase
             nowBeatIndex++;
             currentTime -= 60d / bpm;
             //Managers.Sound.Play("Beat");
+            TurnOnOffGuide();
+
             if (isHitBeat[nowBeatIndex] == true)
             {
-                while (Item) DestroyItem();
+                //while (Item) DestroyItem();
                 Item randomItem = Managers.Resource.GetRandomItemExceptDirty();
                 randomItem.isEncounter = true;
-                item = instantiateItem(randomItem, itemSpawnPos.transform);
+                items.Add(KeyValuePair.Create(
+                    instantiateItem(randomItem, itemSpawnPos.transform),
+                    0
+                    ));
 
                 pressed = false;
                 isCorrect = false;
@@ -225,7 +242,7 @@ public class Stage3 : StageBase
                 Managers.Sound.Play("ItemSpawn");
                 nowPosIdx = 0;
             }
-            if(Item != null)
+            if(items.Count > 0)
             {
                 if (!isCorrect)
                 {
@@ -237,14 +254,11 @@ public class Stage3 : StageBase
 
     private void MoveItems()
     {
-        if (items != null)
+        for (int i=0; i< items.Count; i++)
         {
-            for (int i = items.Count-1; i > 0; i--)
-            {
-                items[i].transform.position = items[i - 1].transform.position;
-            }
+            items[i] = KeyValuePair.Create(items[i].Key, items[i].Value + 1);
+            items[i].Key.transform.position = itemPositions[items[i].Value].position;
         }
-        Item.transform.position = itemPositions[nowPosIdx++].position;
     }
 
     IEnumerator EndStage()
@@ -270,19 +284,19 @@ public class Stage3 : StageBase
         }
     }
 
-    private bool IsPreactionPos()
+    private bool IsPreactionPos(Transform pos)
     {
-        return TargetPos.Equals(preactionPos.position);
+        return TargetPos.Equals(pos.position);
     }
 
-    private bool IsSeperatePos()
+    private bool IsSeperatePos(Transform pos)
     {
-        return TargetPos.Equals(seperatePos.position);
+        return TargetPos.Equals(pos.position);
     }
 
-    protected bool IsCorrectHit()
+    protected bool IsCorrectHit(Transform pos)
     {
-        return TargetPos.Equals(hitPos.position);
+        return TargetPos.Equals(pos.position);
     }
 
     
