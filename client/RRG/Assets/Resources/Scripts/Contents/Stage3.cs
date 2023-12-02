@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,33 +9,103 @@ public class Stage3 : StageBase
     // Update is called once per frame
     class PosItem
     {
-        Item item;
-        int posIdx;
+        private Item item;
+        public Item Item { get { return item; } set { item = value; } }
+        private int posIdx;
+        public int PosIdx { get { return posIdx; } set { posIdx = value; } }
+
+        public PosItem(Item item, int posIdx=0)
+        {
+            this.item = item;
+            this.posIdx = posIdx;
+        }
+
+        public void MoveNext(Transform[] positions)
+        {
+            item.transform.position = positions[++posIdx].position;
+        }
+    }
+    class PosItemList
+    {
+        private List<PosItem> items;
+        private Transform[] positions;
+        private void InstantiateItem(Item origin, int posIdx)
+        {
+            Item newItem = Instantiate(origin);
+            newItem.transform.position = positions[posIdx].position;
+            newItem.GetComponent<SpriteRenderer>().sortingLayerName = "Object";
+            items[posIdx] = new PosItem(newItem, posIdx);
+        }
+
+        private void DestroyItem(PosItem item)
+        {
+            Destroy(item.Item.gameObject);
+        }
+        private void DestroyItem(int idx)
+        {
+            DestroyItem(items[idx]);
+            items[idx] = null;
+        }
+
+        public PosItemList(Transform[] positions)
+        {
+            this.positions = positions;
+            items = Enumerable.Repeat<PosItem>(null, positions.Length).ToList();
+        }
+
+        public void MoveAll()
+        {
+            if (items[^1] != null)
+                Remove(items.Count - 1);
+            for (int i = items.Count-1; i >= 0; i--)
+            {
+                if (items[i] == null)
+                    continue;
+                items[i].MoveNext(positions);
+                items[i + 1] = items[i];
+                items[i] = null;
+            }
+        }
+
+        public void Insert(Item item, int posIdx=0)
+        {
+            InstantiateItem(item, posIdx);
+        }
+
+        public void Remove(int idx=0)
+        {
+            DestroyItem(idx);
+        }
+
+        public bool IsNull(int idx=0)
+        {
+            return items[idx] == null;
+        }
+
+        public Item At(int idx=0)
+        {
+            return items[idx].Item;
+        }
+        public void Seperate(int idx)
+        {
+            PosItem temp = items[idx];
+            if (temp.Item.pair_first)
+                Insert(temp.Item.pair_first, idx);
+            if (temp.Item.pair_second)
+                Insert(temp.Item.pair_second, idx - 1);
+            DestroyItem(temp);
+        }
     }
     public GameObject background;
-    public Transform preactionPos;
-    public Transform seperatePos;
-    public Transform hitPos;
-    public Transform itemSpawnPos;
     public Transform[] itemPositions;
     public Transform itemGotoPos;
     public GameObject keyAnimaiton;
-    bool isCorrect = false;
-    private Vector3 targetPos;
-    int nowPosIdx = 0;
-    private Vector3 TargetPos { get { if (Item == null) return itemSpawnPos.position;  return Item.transform.position; } set { if(Item != null) Item.transform.position = value; } }
-    private List<KeyValuePair<Item, int>> items = new List<KeyValuePair<Item, int>>();
-    private Item Item { get { 
-            if (items.Count == 0) 
-                return null;
-            return items[0].Key;
-        } }
-
     bool pressed = false;
     private Dictionary<KeyCode, ItemType> codeToItem;
-    private Dictionary<ItemType, Transform> itemToPos;
     private Dictionary<ItemType, string> itemToAudio;
-
+    private PosItemList posItems;
+    private const int SEPERATE_POS_IDX = 3;
+    private const int HIT_POS_IDX = 6;
     private void Init()
     {
         codeToItem = new Dictionary<KeyCode, ItemType> 
@@ -45,14 +116,6 @@ public class Stage3 : StageBase
             {KeyCode.E, ItemType.Glass },
             {KeyCode.R, ItemType.Paper }
         };
-        itemToPos = new Dictionary<ItemType, Transform>
-        {
-            {ItemType.General, generalPos.transform },
-            {ItemType.Plastic, plasticPos.transform },
-            {ItemType.Can, canPos.transform },
-            {ItemType.Glass, glassPos.transform },
-            {ItemType.Paper, paperPos.transform },
-        };
         itemToAudio = new Dictionary<ItemType, string>
         {
             {ItemType.General, "General" },
@@ -61,6 +124,7 @@ public class Stage3 : StageBase
             {ItemType.Glass, "Glass" },
             {ItemType.Paper, "Paper" }
         };
+        posItems = new PosItemList(itemPositions);
     }
 
     public override void Start()
@@ -72,20 +136,9 @@ public class Stage3 : StageBase
         StartCoroutine(EndStage());
     }
 
-    protected void DestroyItem(KeyValuePair<Item, int> temp)
-    {
-        if(items == null)
-        {
-            return;
-        }
-        items.Remove(temp);
-        Destroy(temp.Key.gameObject);
-        pressed = false;
-    }
-
     private bool ValidateKeyCode(KeyCode code)
     {
-        return !pressed && Input.GetKeyDown(code);
+        return Input.GetKeyDown(code);
     }
 
     private bool ValidateItemType(ItemType type, Item currentItem)
@@ -108,51 +161,44 @@ public class Stage3 : StageBase
         pressed = false;
     }
 
-    private Item instantiateItem(Item origin, Transform pos)
+    private void Seperate()
     {
-        Item newItem = Instantiate(origin);
-        newItem.transform.position = pos.position;
-        newItem.GetComponent<SpriteRenderer>().sortingLayerName = "Object";
-        return newItem;
-    }
-
-    private void Seperate(KeyValuePair<Item, int> currentItem)
-    {
-        if (!ValidateItemType(ItemType.Mixed, currentItem.Key))
+        if (posItems.IsNull(SEPERATE_POS_IDX))
             return;
+
+        if (!ValidateItemType(ItemType.Mixed, posItems.At(SEPERATE_POS_IDX)))
+            return;
+        keyAnimaiton.SetActive(true);
         if (ValidateKeyCode(KeyCode.Space))
         {
-            if (currentItem.Key.pair_second)
-                items.Add(KeyValuePair.Create(
-                    instantiateItem(currentItem.Key.pair_second, itemPositions[currentItem.Value]), 
-                    currentItem.Value)
-                    );
-            if (currentItem.Key.pair_first)
-                items.Add(KeyValuePair.Create(
-                    instantiateItem(currentItem.Key.pair_first, itemPositions[currentItem.Value - 1]), 
-                    currentItem.Value)
-                    );
-
-            DestroyItem();
-
-            pressed = false;
+            posItems.Seperate(SEPERATE_POS_IDX);
+            keyAnimaiton.SetActive(false);
         }
-        
-        
     }
 
-    private void Hit(KeyValuePair<Item, int> currentItem)
+    private void Hit()
     {
+        if (posItems.IsNull(HIT_POS_IDX))
+            return;
+
+        if (ValidateItemType(ItemType.Mixed, posItems.At(HIT_POS_IDX)))
+            return;
+
         if (pressed)
             return;
-        // 정확한 키를 눌렀는지 확인
+
+        if (!Input.anyKeyDown)
+            return;
+
         foreach (var codeAndType in codeToItem)
         {
-            if (ValidateKeyCode(codeAndType.Key) && ValidateItemType(codeAndType.Value, currentItem.Key))
+            if (ValidateKeyCode(codeAndType.Key) && 
+                ValidateItemType(codeAndType.Value, posItems.At(HIT_POS_IDX)))
             {
-                TargetPos = itemToPos[codeAndType.Value].position;
+                //성공했을 경우 이동하는 것 추가할 수 있음 Remove에서 다른 걸로 바꾸기
+                Managers.Save.correct(posItems.At(HIT_POS_IDX));
                 Managers.Sound.Play(itemToAudio[codeAndType.Value]);
-                Managers.Save.correct(currentItem.Key);
+                posItems.Remove(HIT_POS_IDX);
                 return;
             }
         }
@@ -160,54 +206,27 @@ public class Stage3 : StageBase
         pressed = true;
         StartCoroutine(ChangeColorOverTime());
         Managers.Sound.Play("Fail");
-        Managers.Save.wrong(currentItem.Key);
+        Managers.Save.wrong(posItems.At(HIT_POS_IDX));
     }
 
     private void ButtonProcess()
     {
-        foreach(var currentItem in items)
-        {
-            if (IsPreactionPos(currentItem.Key.transform))
-            {
-                Preaction();
-            }
-            if (IsSeperatePos(currentItem.Key.transform))
-            {
-                Seperate(currentItem);
-            }
-            if (IsCorrectHit(currentItem.Key.transform))
-            {
-                if (Input.anyKeyDown)
-                {
-                    Hit(currentItem);
-                }
-            }
-        }
+        Seperate();
+        Hit();
     }
 
-    private void CleanProcess()
+    private void CreateAndMove()
     {
-        foreach (var currentItem in items)
-        {
-            foreach (var pos in GameObject.FindGameObjectsWithTag("Finish"))
-            {
-                if (TargetPos.Equals(pos.transform.position))
-                    DestroyItem(currentItem);
-            }
-        }
-    }
-
-    private void TurnOnOffGuide()
-    {
-        foreach (var currentItem in items)
-        {
-            if (ValidateItemType(ItemType.Mixed, currentItem.Key))
-            {
-                keyAnimaiton.SetActive(true);
-                return;
-            }
-        }
-        keyAnimaiton.SetActive(false);
+        nowBeatIndex++;
+        currentTime -= 60d / bpm;
+        pressed = false;
+        posItems.MoveAll();
+        if (!isHitBeat[nowBeatIndex])
+            return;
+        Item randomItem = Managers.Resource.GetRandomItemExceptDirty();
+        randomItem.isEncounter = true;
+        posItems.Insert(randomItem);
+        Managers.Sound.Play("ItemSpawn");
     }
 
     private void Update()
@@ -216,48 +235,10 @@ public class Stage3 : StageBase
 
         ButtonProcess();
 
-        CleanProcess();
-
-        //생성 및 이동 관련
         if (currentTime >= 60d / bpm) //매 박자마다
         {
-            nowBeatIndex++;
-            currentTime -= 60d / bpm;
-            //Managers.Sound.Play("Beat");
-            TurnOnOffGuide();
-
-            if (isHitBeat[nowBeatIndex] == true)
-            {
-                //while (Item) DestroyItem();
-                Item randomItem = Managers.Resource.GetRandomItemExceptDirty();
-                randomItem.isEncounter = true;
-                items.Add(KeyValuePair.Create(
-                    instantiateItem(randomItem, itemSpawnPos.transform),
-                    0
-                    ));
-
-                pressed = false;
-                isCorrect = false;
-                Item.transform.localPosition = new Vector2(0, 0);
-                Managers.Sound.Play("ItemSpawn");
-                nowPosIdx = 0;
-            }
-            if(items.Count > 0)
-            {
-                if (!isCorrect)
-                {
-                    MoveItems();
-                }
-            }
-        }
-    }
-
-    private void MoveItems()
-    {
-        for (int i=0; i< items.Count; i++)
-        {
-            items[i] = KeyValuePair.Create(items[i].Key, items[i].Value + 1);
-            items[i].Key.transform.position = itemPositions[items[i].Value].position;
+            keyAnimaiton.SetActive(false);
+            CreateAndMove();
         }
     }
 
@@ -284,20 +265,4 @@ public class Stage3 : StageBase
         }
     }
 
-    private bool IsPreactionPos(Transform pos)
-    {
-        return TargetPos.Equals(pos.position);
-    }
-
-    private bool IsSeperatePos(Transform pos)
-    {
-        return TargetPos.Equals(pos.position);
-    }
-
-    protected bool IsCorrectHit(Transform pos)
-    {
-        return TargetPos.Equals(pos.position);
-    }
-
-    
 }
